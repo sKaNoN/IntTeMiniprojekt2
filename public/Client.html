@@ -35,4 +35,24 @@
     </div>
         <script src="ui.js"></script>  
     </body>
+    
+    <script>
+    
+	$( "#main" ).html( "Text in Client" );
+	
+	var serverAPI = "http://localhost:4730/entries";
+	  $.getJSON( serverAPI, function( result ) {
+		  
+		  $( "#main" ).html( "Entries:" );
+		  $( "#main" ).append("<br/>")
+		  
+	      $.each(result, function(i, field){
+	          $("#main").append(  field.id + " ");
+	          $("#main").append(  field.title + " ");
+	          $("#main").append(  field.url + " ");
+	      });
+	  });
+    
+    </script>
+    
 </html>
