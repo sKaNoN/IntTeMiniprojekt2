@@ -5,27 +5,76 @@
   font-family: @headingFont;
 }
 
-.rounded-corners (@radius: 5px)
-{
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  -ms-border-radius: @radius;
-  -o-border-radius: @radius;
-  border-radius: @radius;
+body {
 }
-
 
 #header {
   background-color: @head-background;
-  padding: 500px;
-  margin: 2px;
+  width: 100%;
+  height:auto;
+  min-height:70px;
+  height:auto !important;        /* for IE as it does not support min-height */
+  height:70px;
+  position: fixed;
+  display: block;
+
 
   @media screen and (min-width : 400px) { float: left; }
 
+  ul {
+    display: block;
+    list-style: none;
+    li {
+      display: inline;
+    }
+    li.rechts {
+      margin-top: 20px;
+      margin-right: 10px;
+      float: right;
+    }
+  }
+
+  a {
+    font-family: @headingFont;
+    color: white;
+    font-weight: bold;
+    font-size: 40px;
+    text-shadow: -2px -2px 0px #101010, 2px 2px 0px #505050;
+    &:hover {
+      text-decoration: none;
+    }
+
+  }
+
 }
 
-h1 {
-  font-family: @headingFont;
-  padding:0;
-  margin:0;
+#top {
+  background-color: @top-background;
+  position: fixed;
+  margin-top: 70px;
+  width: 100%;
+  height:auto;
+  min-height:200px;
+  height:auto !important;        /* for IE as it does not support min-height */
+  height:200px;
+
+  @media screen and (min-width : 400px) { float: left; }
+
+
 }
+
+#main {
+  max-height: 500px;
+  overflow: auto;
+
+  ul {
+    margin-left: 20px;
+  }
+
+}
+
+
+  p {
+    margin-left: 20px;
+  }
+

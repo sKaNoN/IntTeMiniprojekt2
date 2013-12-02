@@ -5,7 +5,7 @@
     //sessionStorage.dataService = $.fn.DataService();  //stores data for one session
     //localStorage.dataService = $.fn.DataService();  //stores data with no expiration date
     
-    alert("test");
+//    alert("test");
     
     $.ajaxSetup({
         cache: false
