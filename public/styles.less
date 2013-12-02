@@ -18,6 +18,13 @@ body {
   display: block;
   clear: both;
 
+  p {
+    font-family: @contentFont;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
   ul {
     display: block;
     list-style: none;
@@ -33,6 +40,7 @@ body {
 
       @media screen and (max-width: 400px) {
         float: left;
+        margin-top: 5px;
       }
     }
 
@@ -50,9 +58,8 @@ body {
       &:hover {
         text-decoration: none;
       }
-  }
 
-
+    }
 
   }
 }

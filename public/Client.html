@@ -3,12 +3,12 @@
 <head>
 
     <title>InTeTestat</title>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
 
 
     <link href="Libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-    <link href="styles.less" rel="stylesheet/less" type="text/css" >
+    <link href="styles.less" rel="stylesheet/less" type="text/css">
 
     <script src="Libs/less.js" type="text/javascript"></script>
     <script src="Libs/doT/doT.js"></script>
@@ -18,59 +18,83 @@
 
     <script src="core.js"></script>
     <script src="dataService.js"></script>
-    <script src="init.js"></script>  
-    
+    <script src="init.js"></script>
+
 </head>
-    <body>
+<body>
 
-    <div id="floattop">
-        <div id="header">
-        <ul>
-            <li><a href="Client.html">Reddit Clone</a></li>
-            <li class="right"><button>Register</button></li>
-            <li class="right"><button>Login</button></li>
-            <li class="right"><input type="password" value="Password"></li>
-            <li class="right"><input type="text" value="Username">
-        </ul>
+<div id="floattop">
+    <div id="header">
 
+        <div id="loggedout" >
+            <ul>
+                <li><a href="Client.html">Reddit Clone</a></li>
+                <li class="right">
+                    <button>Register</button>
+                </li>
+                <li class="right">
+                    <button>Login</button>
+                </li>
+                <li class="right"><input type="password" value="Password"></li>
+                <li class="right"><input type="text" value="Username"></li>
+            </ul>
+        </div>
+        <div id="loggedin" hidden="true">
+            <ul>
+                <li><a href="Client.html">Reddit Clone</a></li>
+                <li class="right">
+
+                </li>
+                <li class="right">
+                    <button>Logout</button>
+                </li>
+                <li class="right"><p>Hello [Username]</p></li>
+                <li class="right">
+                    <button>Submit New Link</button>
+                </li>
+            </ul>
+        </div>
     </div>
-
 
 
     <div id="top">
-    <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
         <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
+
         <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
+
         <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
+
+        <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
+
         <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
     </div>
 </div>
-    <div id="main">
+<div id="main">
 
-    </div>
-        <script src="ui.js"></script>
+</div>
+<script src="ui.js"></script>
 
 
-    </body>
-    
-    <script>
-    
-	$( "#main" ).html( "Text in Client" );
-	
-	var serverAPI = "http://localhost:4730/entries";
-	  $.getJSON( serverAPI, function( result ) {
-		  
-		  $( "#main" ).html( "Entries:" );
-		  $( "#main" ).append("<br/>")
-		  
-	      $.each(result, function(i, field){
-	          $("#main").append(  field.id + " ");
-	          $("#main").append(  field.title + " ");
-	          $("#main").append(  field.url + " ");
-	      });
-	  });
-    
-    </script>
+</body>
 
-    
+<script>
+
+    $("#main").html("Text in Client");
+
+    var serverAPI = "http://localhost:4730/entries";
+    $.getJSON(serverAPI, function (result) {
+
+        $("#main").html("Entries:");
+        $("#main").append("<br/>")
+
+        $.each(result, function (i, field) {
+            $("#main").append(field.id + " ");
+            $("#main").append(field.title + " ");
+            $("#main").append(field.url + " ");
+        });
+    });
+
+</script>
+
+
 </html>
