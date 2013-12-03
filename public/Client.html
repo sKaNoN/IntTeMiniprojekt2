@@ -8,12 +8,13 @@
 
     <link href="Libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-    <link href="styles.less" rel="stylesheet/less" type="text/css">
+    <link href="style.less" rel="stylesheet/less" type="text/css">
 
     <script src="Libs/less.js" type="text/javascript"></script>
     <script src="Libs/doT.js"></script>
     <script src="Libs/jquery-2.0.3.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+
     <script src="Libs/bootstrap/js/bootstrap.min.js"></script>
 
     <script src="core.js"></script>
@@ -22,58 +23,63 @@
 
 </head>
 <body>
-
-<div id="floattop">
-    <div id="header">
-
-        <div id="loggedout" >
-            <ul>
-                <li><a href="Client.html">Reddit Clone</a></li>
-                <li class="right">
-                    <button>Register</button>
-                </li>
-                <li class="right">
-                    <button>Login</button>
-                </li>
-                <li class="right"><input type="password" value="Password"></li>
-                <li class="right"><input type="text" value="Username"></li>
-            </ul>
-        </div>
-        <div id="loggedin" hidden="true">
-            <ul>
-                <li><a href="Client.html">Reddit Clone</a></li>
-                <li class="right">
-
-                </li>
-                <li class="right">
-                    <button>Logout</button>
-                </li>
-                <li class="right"><p>Hello [Username]</p></li>
-                <li class="right">
-                    <button>Submit New Link</button>
-                </li>
-            </ul>
-        </div>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <a class="navbar-brand" href="#/">Reddit Clone</a>
+    <div id="login" hidden="true">
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" id="menuReg">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navReg">Register</a>
+            <div class="dropdown-menu" style="padding:17px;">
+                <form class="form" id="formReg">
+                    <input name="username" class= "dropdownMargin" id="regUser" type="text" placeholder="Username">
+                    <input name="password" class= "dropdownMargin" id="regPwd" type="password" placeholder="Password"><br>
+                    <input name="password" class= "dropdownMargin" id="regPwd2" type="password" placeholder="Password"><br>
+                    <button type="button" id="btnReg" class="btn marginTop">Sign Up</button>
+                </form>
+            </div>
+        </li>
+        <li class="dropdown" id="menuLogin">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
+            <div class="dropdown-menu" style="padding:17px;">
+                <form class="form" id="formLogin">
+                    <input name="username" class= "dropdownMargin" id="loginUser" type="text" placeholder="Username">
+                    <input name="password" class= "dropdownMargin" id="loginPwd" type="password" placeholder="Password"><br>
+                    <button type="button" id="btnLogin" class="btn marginTop">Sign In</button>
+                </form>
+            </div>
+        </li>
+    </ul>
     </div>
-
-
-    <div id="top">
-        <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
-
-        <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
-
-        <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
-
-        <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
-
-        <p>Hello World adsfdas dsaf asdf adsf asdf asf dsaf asdf asdf </p>
+    <div id="logout">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown" id="menuLink">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLink">Submit New Link</a>
+                <div class="dropdown-menu" style="padding:17px;">
+                    <form class="form" id="formLink">
+                        <input name="title" class= "dropdownMargin" id="title" type="text" placeholder="Title">
+                        <input name="url" class= "dropdownMargin" id="url" type="url" placeholder="http://"><br>
+                        <button type="button" id="btnLink" class="btn dropdownMargin">Submit</button>
+                    </form>
+                </div>
+            </li>
+            <li>
+                <p class="navbar-text">Signed in as [username]</p>
+            </li>
+            <li><a href="#/logout">Logout</a></li>
+        </ul>
     </div>
-</div>
+</nav>
+
 <div id="main">
+    <div id="links">
 
+    </div>
+
+    <div id="comments">
+
+    </div>
 </div>
 <script src="ui.js"></script>
-
 
 </body>
 
@@ -95,6 +101,5 @@
     });
 
 </script>
-
 
 </html>
