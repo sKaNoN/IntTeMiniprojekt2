@@ -1,4 +1,4 @@
-﻿(function ($) {
+﻿define('core', ['jquery'], function ($) {
     /**
     * @method Throws an argument exception if the given flag is false.
     **/
@@ -28,4 +28,4 @@
             });
         };
     }
-})(jQuery);
+});
