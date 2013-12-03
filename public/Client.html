@@ -14,10 +14,13 @@
     <script src="Libs/jquery-2.0.3.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="Libs/bootstrap/js/bootstrap.min.js"></script>
+    
 
     <script src="core.js"></script>
     <script src="dataService.js"></script>
-    <script src="init.js"></script>  
+    <script src="init.js"></script>
+
+    <script data-main="scripts/init" src="scripts/require.js"></script>
     
 </head>
     <body>
@@ -40,19 +43,6 @@
     
 	$( "#main" ).html( "Text in Client" );
 	
-	var serverAPI = "http://localhost:4730/entries";
-	  $.getJSON( serverAPI, function( result ) {
-		  
-		  $( "#main" ).html( "Entries:" );
-		  $( "#main" ).append("<br/>")
-		  
-	      $.each(result, function(i, field){
-	          $("#main").append(  field.id + " ");
-	          $("#main").append(  field.title + " ");
-	          $("#main").append(  field.url + " ");
-	      });
-	  });
-    
     </script>
     
 </html>
