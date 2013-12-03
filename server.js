@@ -19,7 +19,6 @@ app.use(express.cookieParser());
 app.use(express.session({secret: '2234567890QWERTY'}));
 app.use(app.router);
 
-
 function checkAuth(req, res, next) {
     if (typeof(req.session.user_id) == "number") {
         next();
