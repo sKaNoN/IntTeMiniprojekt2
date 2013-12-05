@@ -1,24 +1,14 @@
 ﻿(function ($) {
 	
-	$( document ).ready(function() {
-		
-		alert("data service rdy");
+	var dataService = {
+		getLinkEntries: function() {
+			console.log( "get Link Entries");			
+			return $.getJSON( "entries" );
+	    }
+	};
 	
+	$.fn.DataService = function() {
+		return dataService;
+	};
 	
-		var serverAPI = "http://localhost:4730/entries";
-		  $.getJSON( serverAPI, function( result ) {
-			  
-			  $( "#main" ).html( "Entries:" );
-			  //$( "#main" ).append("<br/>");
-			  
-		      $.each(result, function(i, field){
-		    	  alert(field.url);
-		          //$("#main").append(  field.id + " ");
-		          //$("#main").append(  field.title + " ");
-		          //$("#main").append(  field.url + " ");
-		      });
-		  });
-	  
-	});
-  
 })(jQuery);

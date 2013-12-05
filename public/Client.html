@@ -16,9 +16,8 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="Libs/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="core.js"></script>
-    <script src="dataService.js"></script>
-    <script src="init.js"></script>
+    <script src="scripts/modules/dataService.js"></script>
+    <script src="scripts/init.js"></script>
 
 </head>
 <body>
@@ -72,29 +71,9 @@
 <div id="main">
 
 </div>
-<script src="ui.js"></script>
+<script src="scripts/modules/ui.js"></script>
 
 
 </body>
-
-<script>
-
-    $("#main").html("Text in Client");
-
-    var serverAPI = "http://localhost:4730/entries";
-    $.getJSON(serverAPI, function (result) {
-
-        $("#main").html("Entries:");
-        $("#main").append("<br/>")
-
-        $.each(result, function (i, field) {
-            $("#main").append(field.id + " ");
-            $("#main").append(field.title + " ");
-            $("#main").append(field.url + " ");
-        });
-    });
-
-</script>
-
 
 </html>
