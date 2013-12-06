@@ -1,4 +1,4 @@
-﻿﻿(function () {
+﻿(function () {
     requirejs.config({
         paths: {
             jquery: 'Libs/jquery-2.0.3',
