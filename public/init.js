@@ -5,15 +5,20 @@
             doT: 'Libs/doT',
             bootstrap: 'Libs/bootstrap/js/bootstrap.min',
             sammy: 'Libs/sammy',
-            ko: 'Libs/knockout-3.0.0'
         }
     });
 })();
 
 
-define(['modules/ui', 'ko', 'bootstrap'], function(ui, ko, bs) {
-    bs.run();
-    ko.applyBindings(new ui());
+define(['modules/ui', 'sammy', 'bootstrap'], function(ui, sammy) {
+
+
+    var app = sammy("body", function(){
+        this.get("#/", function(){ ui.showLinks();});
+    });
+
+    app.run("#/");
+
 });
 
 /*

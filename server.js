@@ -37,6 +37,11 @@ var comment = new Comment(0, "TestComment", "Author");
 comments.push(comment);
 entries[0].comments.push(comment);
 
+entries.push(new Link(entries.length, "Test", "Author", "http://www.hsr.ch"));
+var comment = new Comment(1, "TestKommentar", "Author");
+comments.push(comment);
+entries[1].comments.push(comment);
+
 //default user
 users.push(new User(users.length, "a", "a") );
   

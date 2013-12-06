@@ -5,22 +5,44 @@
     <title>InTeTestat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-
-    <link href="Libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link href="style.less" rel="stylesheet/less" type="text/css">
+    <link href="Libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
 
     <script data-main="init.js" src="Libs/require.js"></script>
+
+
+    <script id="templateLink" type="text/template">
+        <div class="containter" style="padding-top: 100px">
+            <div class="col-md-1 col-xs-1">
+                <a id="linkVoteUp{{=it.id}}" href="#/link/{{=it.id}}/voteUp"></a>
+                <p id="linkRating{{=it.id}}">{{=it.rating.value}}</p>
+                <a id="linkVoteDown{{=it.id}}" href="#/link/{{=it.id}}/voteDown"></a>
+            </div>
+        </div>
+        <div class="panel-heading col-md-10 col-xs-10">
+            <h2><a class="external" href="{{=it.url}}">{{=it.title}}</a></h2>
+            <small>By <strong>{{=it.author}}</strong> </small>
+            <p>
+                <img src="assets/comments.png" />
+                <a id="entry-comment-{{=it.id}}" href="#/entry/{{=it.id}}">Comment</a>
+            </p>
+        </div>
+
+
+    </script>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <a class="navbar-brand" href="#">Reddit Clone</a>
-    <div id="login" >
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <ul class="nav navbar-nav navbar-left">
+    <li><a class="navbar-brand" href="#">Reddit Clone</a></li>
+    </ul>
+    <div id="login" hidden="true">
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" id="menuReg">
-            <a class="dropdown-toggle" data-toggle="dropdown" id="navReg">Register</a>
+            <a class="dropdown-toggle" href="#/" data-toggle="dropdown" id="navReg">Register</a>
             <div class="dropdown-menu" style="padding:17px;">
-                <form class="form" id="formReg" action="#/register" methpd="post" accept-charset="utf-8">
+                <form class="form" id="formReg" action="#/register" method="post" accept-charset="utf-8">
                     <input name="username" class= "dropdownMargin" id="regUser" type="text" placeholder="Username">
                     <input name="password" class= "dropdownMargin" id="regPwd" type="password" placeholder="Password"><br>
                     <input name="password" class= "dropdownMargin" id="regPwd2" type="password" placeholder="Password"><br>
@@ -28,25 +50,25 @@
                 </form>
             </div>
         </li>
-        <li class="dropdown" id="menuLogin">
-            <a class="dropdown-toggle" data-toggle="dropdown" id="navLogin">Login</a>
+        <li class="dropdown" style="padding-right:17px;" id="menuLogin">
+            <a class="dropdown-toggle" href="#/" data-toggle="dropdown" id="navLogin">Login</a>
             <div class="dropdown-menu" style="padding:17px;">
-                <form class="form" id="formLogin" action="#/login" methpd="post" accept-charset="utf-8">
-                    <input name="username" class= "dropdownMargin" id="loginUser" type="text" placeholder="Username" data-bind="value: user.username">
-                    <input name="password" class= "dropdownMargin" id="loginPwd" type="password" placeholder="Password" data-bind="value: user.password"><br>
-                    <p>Full name: <strong data-bind="text: user.login"></strong></p>
+                <form class="form" id="formLogin" action="#/login" method="post" accept-charset="utf-8">
+                    <input name="username" class= "dropdownMargin" id="loginUser" type="text" placeholder="Username" data-bind="value: username">
+                    <input name="password" class= "dropdownMargin" id="loginPwd" type="password" placeholder="Password" data-bind="value: password"><br>
+                    <p>Full name: <strong data-bind="text: login"></strong></p>
                     <button type="submit" id="btnLogin" class="btn dropdownBtn">Sign In</button>
                 </form>
             </div>
         </li>
     </ul>
     </div>
-    <div id="logout" hidden="true">
+    <div id="logout" >
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown" id="menuLink">
-                <a class="dropdown-toggle" data-toggle="dropdown" id="navLink">Submit New Link</a>
+            <li class="dropdown" id="menuLink" style="padding-right: 100px">
+                <a class="dropdown-toggle" href="#/" data-toggle="dropdown" id="navLink">Submit New Link</a>
                 <div class="dropdown-menu" style="padding:30px;">
-                    <form class="form" id="formLink" action="#/submitLink" methpd="post" accept-charset="utf-8">
+                    <form class="form" id="formLink" action="#/submitLink" method="post" accept-charset="utf-8">
                         <input name="title" class= "dropdownMargin" id="title" type="text" placeholder="Title">
                         <input name="url" class= "dropdownMargin" id="url" type="url" placeholder="http://"><br>
                         <button type="submit" id="btnLink" class="btn dropdownBtn">Submit</button>
@@ -56,14 +78,14 @@
             <li>
                 <p class="navbar-text">Signed in as [username]</p>
             </li>
-            <li><a href="#/logout">Logout</a></li>
+            <li style="padding-right:17px;"><a href="#/logout">Logout</a></li>
         </ul>
     </div>
 </nav>
 
-<div id="main">
+<div id="main" style="padding-top: 50px; padding-left: 20px">
     <div id="links">
-
+        <p>Test</p>
     </div>
 
     <div id="comments">
