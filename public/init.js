@@ -1,7 +1,7 @@
 ﻿﻿(function () {
     requirejs.config({
         paths: {
-            jquery: 'Libs/jquery-2.0.3',
+            jQuery: 'Libs/jquery-2.0.3',
             doT: 'Libs/doT',
             bootstrap: 'Libs/bootstrap/js/bootstrap.min',
             sammy: 'Libs/sammy',
@@ -11,9 +11,10 @@
 })();
 
 
-define(['modules/ui', 'ko', 'bootstrap'], function(ui, ko, bs) {
-    bs.run();
-    ko.applyBindings(new ui());
+define(['modules/ui', 'ko', 'jQuery', 'bootstrap'], function(ui, ko, jQuery, bs) {
+	ui.load();
+    //bs.run();
+    //ko.applyBindings(new ui());
 });
 
 /*

@@ -1,5 +1,15 @@
-﻿define('ui', ['modules/dataservice', 'knockout-3.0.0', 'sammy', 'modules/core', 'bootstrap'], function(dataservice ,ko, sammy){
+﻿define('modules/ui', ['modules/dataservice', 'ko', 'sammy', 'modules/core', 'bootstrap'], function(dataservice ,ko, sammy){
 
+	var ui = {
+		load: function() {
+			console.log("ui log");
+		}
+	};
+	
+	return ui;
+			
+	
+	/*
     return function ui() {
        var self = this;
         
@@ -9,5 +19,8 @@
            return self.user.username() + " " + self.user.password();
        }, this);
 
-    }
+       
+    };
+    */
+    
 });
