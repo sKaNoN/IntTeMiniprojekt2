@@ -1,20 +1,24 @@
-﻿﻿(function () {
+﻿(function () {
     requirejs.config({
         paths: {
-            jQuery: 'Libs/jquery-2.0.3',
+            jquery: 'Libs/jquery-2.0.3',
             doT: 'Libs/doT',
             bootstrap: 'Libs/bootstrap/js/bootstrap.min',
             sammy: 'Libs/sammy',
-            ko: 'Libs/knockout-3.0.0'
         }
     });
 })();
 
 
-define(['modules/ui', 'ko', 'jQuery', 'bootstrap'], function(ui, ko, jQuery, bs) {
-	ui.load();
-    //bs.run();
-    //ko.applyBindings(new ui());
+define(['modules/ui', 'sammy', 'bootstrap'], function(ui, sammy) {
+
+
+    var app = sammy("body", function(){
+        this.get("#/", function(){ ui.showLinks();});
+    });
+
+    app.run("#/");
+
 });
 
 /*
