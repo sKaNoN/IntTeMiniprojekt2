@@ -8,7 +8,6 @@ define('modules/ui', ['modules/dataService', 'jquery', 'doT', 'sammy', 'modules/
 
 
     var ui = {
-
         showLinks : function() {
             dataservice.link.getAll().then(function(data){
                 $("#links").empty();
