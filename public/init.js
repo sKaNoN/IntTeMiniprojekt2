@@ -6,18 +6,21 @@
             bootstrap: 'Libs/bootstrap/js/bootstrap.min',
             sammy: 'Libs/sammy',
             'socket.io': '/socket.io/socket.io'
+        },
+        shim: {
+            "bootstrap": { deps: ['jquery'], exports: '$.fn.dropdown' }
         }
     });
 })();
 
 
-define(['modules/ui', 'modules/test_ui', 'sammy', 'bootstrap', 'socket.io'], function(ui, test_ui, sammy, io) {
+define(['modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], function(ui, test_ui, sammy, io) {
 
     var socket = io.connect('http://localhost:4730');
     socket.on('message', function(message){
         $.event.trigger({ type: message.action.toLowerCase(), what: message.type, id: message.id });
     });
-    
+
 	test_ui.test();
 
     var app = sammy("body", function(){
