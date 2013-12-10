@@ -6,6 +6,9 @@
             bootstrap: 'Libs/bootstrap/js/bootstrap.min',
             sammy: 'Libs/sammy',
             'socket.io': '/socket.io/socket.io'
+        },
+        shim: {
+            "bootstrap": { deps: ['jquery'], exports: '$.fn.dropdown' }
         }
     });
 })();
