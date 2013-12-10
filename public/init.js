@@ -10,8 +10,9 @@
 })();
 
 
-define(['modules/ui', 'sammy', 'bootstrap'], function(ui, sammy) {
+define(['modules/ui', 'modules/test_ui', 'sammy', 'bootstrap'], function(ui, test_ui, sammy) {
 
+	test_ui.test();
 
     var app = sammy("body", function(){
         this.get("#/", function(){ ui.showLinks();});
