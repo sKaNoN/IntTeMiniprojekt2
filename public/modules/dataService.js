@@ -5,12 +5,22 @@
             getAll: function() {
                 return $.getJSON('/entries');
             },
+            foreach: function(callback) {
+            	var entries = $.getJSON('/entries');
+            	entries.then(callback);
+            },
             get: function(id) {
                 return $.getJSON('entry/' + id);
             },
             add: function(newTitle, newUrl) {
-            	$.post("login", { title: newTitle, url: newUrl }, function(newLink){
-            		console.log(newLink.url);
+            	console.log("start add new Link (tuet nöd wil nöd igloggt");
+            	$.post("entry", { title: newTitle, url: newUrl }, function(newLink){
+            		console.log("Created new Link: " + newLink.url);
+            	});
+            },
+            voteup: function(id) {
+            	$.post("entry/" + id + "/up", {}, function(){
+            		console.log("Link voted up");
             	});
             },
             testFunction: function() {
@@ -30,7 +40,7 @@
             }
         }
 
-    }
+    };
 
     return dataservice;
 });
