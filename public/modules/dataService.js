@@ -1,7 +1,7 @@
-﻿define('dataservice', ['jquery', 'modules/core'], function ($) {
+﻿define('modules/dataService', ['jquery', 'modules/core'], function ($) {
 
     var dataservice = {
-        entry: {
+        link: {
             getAll: function() {
                 return $.getJSON('/entries');
             },
