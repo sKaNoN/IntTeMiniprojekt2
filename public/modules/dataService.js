@@ -13,35 +13,57 @@
                 return $.getJSON('entry/' + id);
             },
             add: function(newTitle, newUrl) {
-            	console.log("start add new Link (tuet nöd wil nöd igloggt");
             	$.post("entry", { title: newTitle, url: newUrl }, function(newLink){
             		console.log("Created new Link: " + newLink.url);
+            		location.reload();
             	});
             },
             voteup: function(id) {
             	$.post("entry/" + id + "/up", {}, function(){
             		console.log("Link voted up");
+            		location.reload();
             	});
             },
-            testFunction: function() {
-            	return "Text Return";
-            }
+            votedown: function(id) {
+            	$.post("entry/" + id + "/down", {}, function(){
+            		console.log("Link voted down");
+            		location.reload();
+            	});
+            },
         },
 
         users: {
             login: function(username, password) {
-                console.log(username);
-                console.log(password);
+                console.log("Try login: " + username + " pw: " + password);
                 $.post("login", { name: username, password: password }, function(success){
                     if (success === true) {
                         $.event.trigger({ type: "login", name: username });
-                        console.log("success");
+                        console.log("Login success");
                     } else {
                         $.event.trigger({ type: "login-failed" });
-                        console.log("failed");
+                        console.log("Login failed");
                     }
                 });
-            }
+            },
+            logout: function() {
+            	$.post("logout", {}, function(success){
+                    if (success === true) {
+                        console.log("Log Out success");
+                    } else {
+                        console.log("Log Out failed");
+                    }
+                });
+            },
+        	register: function(username, password) {
+        		console.log("Register: " + username + " pw: " + password);
+        		$.post("register", { name: username, password: password }, function(success){
+                    if (success === true) {
+                        console.log("Register success");
+                    } else {
+                        console.log("Register failed");
+                    }
+                });
+        	},
         }
 
     };
