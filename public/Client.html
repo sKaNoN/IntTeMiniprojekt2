@@ -13,7 +13,8 @@
 
 
     <script id="templateLink" type="text/template">
-        <div class="containter row">
+        <div class="container" style="padding-top: 100px">
+        <div class="container row">
             <div class="col-md-1 col-xs-1">
                 <a id="linkVoteUp{{=it.id}}" href="#/link/{{=it.id}}/voteUp">Vote Up</a>
                 <p style=" margin-top: 0.2em; margin-bottom: 0.2em;" id="linkRating{{=it.id}}">{{=it.rating.value}}</p>
@@ -28,6 +29,37 @@
             </div>
         </div>
     </script>
+
+    <script id="templateComment" type="text/template">
+        <div class="container" style="padding-top: 100px">
+            <div class="container row">
+                <div class="col-md-1 col-xs-1">
+                    <a id="commentVoteUp{{=it.id}}" href="#/comment/{{=it.id}}/voteUp">Vote Up</a>
+                    <p style=" margin-top: 0.2em; margin-bottom: 0.2em;" id="commentRating{{=it.id}}">{{=it.rating.value}}</p>
+                    <a id="commentVoteDown{{=it.id}}" href="#/comment/{{=it.id}}/voteDown">Vote Down</a>
+                </div>
+                <div class="col-md-10 col-xs-10">
+                    <p style="margin-top: 0">{{=it.text}}</p>
+                    <small>By <strong>{{=it.author}}</strong></small>
+                </div>
+            </div>
+    </script>
+
+    <script id="templateCommentEdit" type="text/template">
+        <div class="container" style="padding-top: 100px">
+            <div class="container row">
+                <div class="col-md-1 col-xs-1">
+                    <p>Enter your comment here: </p>
+                </div>
+                <div class="col-md-10 col-xs-10">
+                    <form class="form" id="formComment" action="#/comment" method="post" accept-charset="utf-8">
+                        <input name="text" id="submitComment" type="text" placeholder="Text"><br>
+                        <button type="submit" id="btnComment">Submit Comment</button>
+                    </form>
+                </div>
+            </div>
+    </script>
+
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
