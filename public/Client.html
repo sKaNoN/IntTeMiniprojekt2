@@ -15,18 +15,17 @@
     <script id="templateLink" type="text/template">
         <div class="container" style="padding-top: 100px">
             <p> Hello World</p>
+        <div class="containter row">
             <div class="col-md-1 col-xs-1">
-                <a id="linkVoteUp{{=it.id}}" href="#/link/{{=it.id}}/voteUp"></a>
-
-                <p id="linkRating{{=it.id}}">{{=it.rating.value}}</p>
-                <a id="linkVoteDown{{=it.id}}" href="#/link/{{=it.id}}/voteDown"></a>
+                <a id="linkVoteUp{{=it.id}}" href="#/link/{{=it.id}}/voteUp">Vote Up</a>
+                <p style=" margin-top: 0.2em; margin-bottom: 0.2em;" id="linkRating{{=it.id}}">{{=it.rating.value}}</p>
+                <a id="linkVoteDown{{=it.id}}" href="#/link/{{=it.id}}/voteDown">Vote Down</a>
             </div>
-            <div class="panel-heading col-md-10 col-xs-10">
-                <h2><a class="external" href="{{=it.url}}">{{=it.title}}</a></h2>
+            <div class="col-md-10 col-xs-10">
+                <h2 style="margin-top: 0"><a class="external" href="{{=it.url}}">{{=it.title}}</a></h2>
                 <small>By <strong>{{=it.author}}</strong></small>
                 <p>
-                    <img src="assets/comments.png"/>
-                    <a id="entry-comment-{{=it.id}}" href="#/entry/{{=it.id}}">Comment</a>
+                    <a id="entry-comment-{{=it.id}}" href="#/entry/{{=it.id}}">Comments</a>
                 </p>
             </div>
         </div>
@@ -101,14 +100,14 @@
                 </div>
             </li>
             <li>
-                <p class="navbar-text">Signed in as [username]</p>
+                <p style="padding-left: 17px" class="navbar-text">Signed in as [username]</p>
             </li>
             <li style="padding-right:17px;"><a href="#/logout">Logout</a></li>
         </ul>
     </div>
 </nav>
 
-<div id="main" style="padding-top: 50px; padding-left: 20px">
+<div id="main" style="padding-left: 20px; clear: both;">
     <div id="links">
     </div>
 
