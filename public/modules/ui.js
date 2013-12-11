@@ -15,7 +15,25 @@ define('modules/ui', ['modules/dataService', 'jquery', 'doT', 'sammy', 'modules/
                     $("#links").append(linktemplate(link));
                 });
             });
+        },
+
+        showComments : function() {
+            dataservice.comments.getAll().then(function(data){
+                $("#comments").empty();
+                $.each(data.sort(sortByRating), function(index, link) {
+                    $("#comments").append(commenttemplate(link));
+                });
+            });
+        },
+
+        showLogin : function() {
+        },
+
+        showLinksubmit : function() {
         }
+
+
+
     }
 
     return ui;

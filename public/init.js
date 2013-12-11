@@ -26,6 +26,8 @@ define(['modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], function(ui, tes
 
     var app = sammy("body", function(){
         this.get("#/", function(){ ui.showLinks();});
+        this.get("#/login", function() {ui.showLogin();});
+        this.get("#/submitLink", function() {ui.showLinksubmit();});
     });
 
     app.run("#/");
