@@ -45,6 +45,18 @@
             		location.reload();
             	});
         	},
+        	voteup: function(id) {
+            	$.post("comment/" + id + "/up", {}, function(){
+            		console.log("Comment voted up");
+            		location.reload();
+            	});
+            },
+            votedown: function(id) {
+            	$.post("comment/" + id + "/down", {}, function(){
+            		console.log("Comment voted down");
+            		location.reload();
+            	});
+            },
         },
 
         users: {
@@ -79,6 +91,14 @@
                     }
                 });
         	},
+        	getAll: function() {
+        		console.log("Read all Users");
+        		return $.getJSON('/users');
+        	},
+            foreach: function(callback) {
+            	var entries = $.getJSON('/users');
+            	entries.then(callback);
+            },
         }
 
     };

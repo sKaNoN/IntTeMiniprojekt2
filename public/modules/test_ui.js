@@ -17,12 +17,16 @@ define('modules/test_ui', ['jquery', 'modules/dataService'], function($, dataser
 	      	'<input type="text" name="textbox" id="password_register_textbox" value="" >' +
 	      	'<input type="button" value="Register" id="register_button">' + '</br>' +
 	      	
-	      	'Links: ' +
-	      	'<input type="button" value="Create Link" id="create_link_button">' + 
+	      	'Create Link: ' +
+	      	'<input type="button" value="Create Link" id="create_link_button">' + '</br>' +
+	      	
+	      	'Vote Link/Comment: ' +
 	      	'<input type="button" value="Vote Up Link" id="voteup_link_button">' +
 	      	'<input type="button" value="Vote Down Link" id="votedown_link_button">' +
-	      	'LinkId:' +
-	      	'<input type="text" name="textbox" id="vote_link_textbox" value="0" >' + '</br>' +
+	      	'<input type="button" value="Vote Up Comment" id="voteup_comment_button">' +
+	      	'<input type="button" value="Vote Down Comment" id="votedown_comment_button">' +
+	      	'Link/CommentId:' +
+	      	'<input type="text" name="textbox" id="vote_textbox" value="0" >' + '</br>' +
 	      	
 	      	'Comment Link/Comment: ' +
 	      	'<input type="text" name="textbox" id="comment_text_textbox" value="" >' +
@@ -35,20 +39,7 @@ define('modules/test_ui', ['jquery', 'modules/dataService'], function($, dataser
 		
 	
 		newTextBoxDiv.appendTo("#main");
-		
-		$("#comment_link_button").click(function () {
-			console.log("Comment Link pressed");
-			var id = $('#comment_textbox').val();
-			var text = $('#comment_text_textbox').val();
-			dataservice.comments.addToLink(id, text);
-	 	});
-		$("#comment_comment_button").click(function () {
-			console.log("Comment Comment pressed");
-			var id = $('#comment_textbox').val();
-			var text = $('#comment_text_textbox').val();
-			dataservice.comments.addToComment(id, text);
-	 	});
-		
+				
 		$("#login_button").click(function () {
 			console.log("Login pressed");
 			var username = $('#name_login_textbox').val();
@@ -65,19 +56,43 @@ define('modules/test_ui', ['jquery', 'modules/dataService'], function($, dataser
 			var password = $('#password_register_textbox').val();
 	 		dataservice.users.register(username, password);
 	 	});
+		
 		$("#create_link_button").click(function () {
 			console.log("Create Link pressed");
 	 		dataservice.links.add("My new awsome link", "new.bla.com");
 	 	});
 		$("#voteup_link_button").click(function () {
-			var linkId = $('#vote_link_textbox').val();
-			console.log("Vote Up Link pressed: " + linkId);
-	 		dataservice.links.voteup(linkId);
+			var id = $('#vote_textbox').val();
+			console.log("Vote Up Link pressed: " + id);
+	 		dataservice.links.voteup(id);
 	 	});
 		$("#votedown_link_button").click(function () {
-			var linkId = $('#vote_link_textbox').val();
-			console.log("Vote Down Link pressed: " + linkId);
-	 		dataservice.links.votedown(linkId);
+			var id = $('#vote_textbox').val();
+			console.log("Vote Down Link pressed: " + id);
+	 		dataservice.links.votedown(id);
+	 	});
+		
+		$("#comment_link_button").click(function () {
+			console.log("Comment Link pressed");
+			var id = $('#comment_textbox').val();
+			var text = $('#comment_text_textbox').val();
+			dataservice.comments.addToLink(id, text);
+	 	});
+		$("#comment_comment_button").click(function () {
+			console.log("Comment Comment pressed");
+			var id = $('#comment_textbox').val();
+			var text = $('#comment_text_textbox').val();
+			dataservice.comments.addToComment(id, text);
+	 	});
+		$("#voteup_comment_button").click(function () {
+			var id = $('#vote_textbox').val();
+			console.log("Vote Up Comment pressed: " + id);
+	 		dataservice.comments.voteup(id);
+	 	});
+		$("#votedown_comment_button").click(function () {
+			var id = $('#vote_textbox').val();
+			console.log("Vote Down Comment pressed: " + id);
+	 		dataservice.comments.votedown(id);
 	 	});
 	};
 	
@@ -104,9 +119,15 @@ define('modules/test_ui', ['jquery', 'modules/dataService'], function($, dataser
 	
 	var showLinks = function(entries) {
 		console.log("show links function");
-		
 		$.each(entries, function(index, link) {
 			showLink(link);
+        });
+	};
+	
+	var showUsers = function(users) {
+		console.log("show users function");
+		$.each(users, function(index, user) {
+			console.log("User (" + user.id + "): " + user.name);
         });
 	};
 	
@@ -118,6 +139,8 @@ define('modules/test_ui', ['jquery', 'modules/dataService'], function($, dataser
             
             console.log("foreach test");
             dataservice.links.foreach(showLinks);
+            
+            dataservice.users.foreach(showUsers);
         },
     };
 
