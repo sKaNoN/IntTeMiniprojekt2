@@ -60,13 +60,32 @@ define('modules/test_ui', ['jquery', 'modules/dataService'], function($, dataser
 	 	});
 	};
 	
+	var showComments = function(comment, level) {
+		//TODO: do the effect in gui
+		var padding = "";
+		for (var i = 0; i < level; i++) {
+			padding += "  ";
+		}
+		
+		var tmp = "Comment from " + comment.author + ": " + comment.text + "(" + comment.rating.value + " rating)";
+		console.log(padding + tmp);
+		$.each(comment.comments, function(index, c) {
+			showComments(c, ++level);
+        });
+	};
+	
+	var showLink = function(link) {
+		console.log("Link (id:" + link.id + ") " + link.title + "; " + link.url);
+		$.each(link.comments, function(index, c) {
+			showComments(c, 1);
+        });
+	};
+	
 	var showLinks = function(entries) {
 		console.log("show links function");
 		
 		$.each(entries, function(index, link) {
-			console.log("Link with id: " + link.id);
-			console.log(link.title);
-			console.log(link.url);
+			showLink(link);
         });
 	};
 	
