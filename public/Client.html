@@ -13,7 +13,7 @@
 
 
     <script id="templateLink" type="text/template">
-        <div class="containter" style="padding-top: 100px">
+        <div class="container" style="padding-top: 100px">
             <p> Hello World</p>
             <div class="col-md-1 col-xs-1">
                 <a id="linkVoteUp{{=it.id}}" href="#/link/{{=it.id}}/voteUp"></a>
@@ -31,6 +31,23 @@
             </div>
         </div>
     </script>
+
+    <script id="templateComment" type="text/template">
+        <div class="container" style="padding-top: 100px">
+            <p> Hello World</p>
+            <div class="col-md-1 col-xs-1">
+                <a id="commentVoteUp{{=it.id}}" href="#/comment/{{=it.id}}/voteUp"></a>
+
+                <p id="commentRating{{=it.id}}">{{=it.rating.value}}</p>
+                <a id="commentVoteDown{{=it.id}}" href="#/comment/{{=it.id}}/voteDown"></a>
+            </div>
+            <div class="panel-heading col-md-10 col-xs-10">
+                <p><a class="external">{{=it.text}}</p>
+                <small>By <strong>{{=it.author}}</strong></small>
+            </div>
+        </div>
+    </script>
+
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
