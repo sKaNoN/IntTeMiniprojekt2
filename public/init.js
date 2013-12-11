@@ -27,7 +27,9 @@ define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], functi
     var app = sammy("body", function(){
         this.get("#/", function(context){ ui.showLinks();});
         this.get("#/login", function(context) {ui.logIn();});
+        this.get("#/logout", function(context) {ui.logOut();});
         this.get("#/register", function(context) {ui.showRegister();});
+        this.get("#linkSubmit", function(context) {ui.showLinkSubmit();});
     });
 
     app.run("#/");

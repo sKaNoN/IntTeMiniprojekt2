@@ -8,6 +8,11 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
 
     var ui = {
+
+        hideAll : function() {
+            $('#main >  div').addClass('hidden');
+        },
+
         showLinks : function() {
             dataservice.links.getAll().then(function(data){
                 $("#links").empty();
@@ -27,8 +32,27 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         },
 
         logIn : function() {
-           dataservice.users.login($('#loginUser').val(), $('#loginPwd').val());
-        }
+            dataservice.users.login($('#loginUser').val(), $('#loginPwd').val());
+
+            //provisorisch:
+            $('#logout').removeClass('hidden');
+            $('#login').addClass('hidden');
+
+        },
+
+        logOut : function() {
+            dataservice.users.logout();
+            $('#login').removeClass('hidden');
+            $('#logout').addClass('hidden');
+        },
+
+       showRegister : function() {
+           $("#register").removeClass("hidden");
+       },
+
+       showLinkSubmit : function() {
+           $("#linkSubmit").removeClass("hidden");
+       }
     }
 
     return ui;
