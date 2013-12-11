@@ -31,6 +31,21 @@
             	});
             },
         },
+        
+        comments: {
+        	addToLink: function(id, text) {
+            	$.post("entry/" + id + "/comment", {text: text}, function(){
+            		console.log("Link comment added");
+            		location.reload();
+            	});
+        	},
+        	addToComment: function(id, text) {
+            	$.post("comment/" + id + "/", {text: text}, function(){
+            		console.log("Comment comment added");
+            		location.reload();
+            	});
+        	},
+        },
 
         users: {
             login: function(username, password) {

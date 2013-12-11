@@ -21,12 +21,33 @@ define('modules/test_ui', ['jquery', 'modules/dataService'], function($, dataser
 	      	'<input type="button" value="Create Link" id="create_link_button">' + 
 	      	'<input type="button" value="Vote Up Link" id="voteup_link_button">' +
 	      	'<input type="button" value="Vote Down Link" id="votedown_link_button">' +
-	      	'<input type="text" name="textbox" id="vote_link_textbox" value="0" >' + '</br>'
+	      	'LinkId:' +
+	      	'<input type="text" name="textbox" id="vote_link_textbox" value="0" >' + '</br>' +
+	      	
+	      	'Comment Link/Comment: ' +
+	      	'<input type="text" name="textbox" id="comment_text_textbox" value="" >' +
+	      	'<input type="button" value="Comment Link" id="comment_link_button">' +
+	      	'<input type="button" value="Comment Comment" id="comment_comment_button">' +
+	      	'Link/Comment Id:' +
+	      	'<input type="text" name="textbox" id="comment_textbox" value="0" >' + '</br>'
 		);
 		
 		
 	
 		newTextBoxDiv.appendTo("#main");
+		
+		$("#comment_link_button").click(function () {
+			console.log("Comment Link pressed");
+			var id = $('#comment_textbox').val();
+			var text = $('#comment_text_textbox').val();
+			dataservice.comments.addToLink(id, text);
+	 	});
+		$("#comment_comment_button").click(function () {
+			console.log("Comment Comment pressed");
+			var id = $('#comment_textbox').val();
+			var text = $('#comment_text_textbox').val();
+			dataservice.comments.addToComment(id, text);
+	 	});
 		
 		$("#login_button").click(function () {
 			console.log("Login pressed");
@@ -70,7 +91,7 @@ define('modules/test_ui', ['jquery', 'modules/dataService'], function($, dataser
 		var tmp = "Comment from " + comment.author + ": " + comment.text + "(" + comment.rating.value + " rating)";
 		console.log(padding + tmp);
 		$.each(comment.comments, function(index, c) {
-			showComments(c, ++level);
+			showComments(c, level+1);
         });
 	};
 	
