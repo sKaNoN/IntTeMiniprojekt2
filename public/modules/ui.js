@@ -1,4 +1,4 @@
-define('modules/ui', ['modules/dataService', 'jquery', 'doT', 'sammy', 'modules/core', 'bootstrap'], function(dataservice, $,  doT, sammy){
+define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/core'], function( $,  doT, sammy, dataservice){
 
     var linktemplate = doT.template($("#templateLink").text());
 
@@ -26,14 +26,9 @@ define('modules/ui', ['modules/dataService', 'jquery', 'doT', 'sammy', 'modules/
             });
         },
 
-        showLogin : function() {
-        },
-
-        showLinksubmit : function() {
+        logIn : function() {
+           dataservice.users.login($('#loginUser').val(), $('#loginPwd').val());
         }
-
-
-
     }
 
     return ui;
