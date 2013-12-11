@@ -30,11 +30,15 @@
 
         users: {
             login: function(username, password) {
+                console.log(username);
+                console.log(password);
                 $.post("login", { name: username, password: password }, function(success){
                     if (success === true) {
                         $.event.trigger({ type: "login", name: username });
+                        console.log("success");
                     } else {
                         $.event.trigger({ type: "login-failed" });
+                        console.log("failed");
                     }
                 });
             }

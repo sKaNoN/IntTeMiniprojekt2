@@ -14,7 +14,7 @@
 })();
 
 
-define(['modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], function(ui, test_ui, sammy, io) {
+define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], function($, ui, test_ui, sammy, io) {
 
     var socket = io.connect('http://localhost:4730');
     socket.on('message', function(message){
@@ -25,7 +25,9 @@ define(['modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], function(ui, tes
 	test_ui.test();
 
     var app = sammy("body", function(){
-        this.get("#/", function(){ ui.showLinks();});
+        this.get("#/", function(context){ ui.showLinks();});
+        this.get("#/login", function(context) {ui.logIn();});
+        this.get("#/register", function(context) {ui.showRegister();});
     });
 
     app.run("#/");
