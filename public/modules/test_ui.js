@@ -96,31 +96,30 @@ define('modules/test_ui', ['jquery', 'modules/dataService'], function($, dataser
 	 	});
 	};
 	
-	var showComments = function(comment, level) {
+	var printLink = function(link, level) {
+		console.log("Link (id:" + link.id + ") " + link.title + "; " + link.url);
+	};
+	
+	var printComment = function(comment, level) {
 		//TODO: do the effect in gui
 		var padding = "";
 		for (var i = 0; i < level; i++) {
 			padding += "  ";
 		}
-		
-		var tmp = "Comment from " + comment.author + ": " + comment.text + "(" + comment.rating.value + " rating)";
-		console.log(padding + tmp);
-		$.each(comment.comments, function(index, c) {
-			showComments(c, level+1);
-        });
+		console.log(padding + "Comment from " + comment.author + ": " + comment.text + "(" + comment.rating.value + " rating)");
 	};
 	
-	var showLink = function(link) {
-		console.log("Link (id:" + link.id + ") " + link.title + "; " + link.url);
-		$.each(link.comments, function(index, c) {
-			showComments(c, 1);
+	var printNode = function(node, level, printFunction) {
+		printFunction(node, level);
+		$.each(node.comments, function(index, c) {
+			printNode(c, level+1, printComment);
         });
 	};
 	
 	var showLinks = function(entries) {
 		console.log("show links function");
 		$.each(entries, function(index, link) {
-			showLink(link);
+			printNode(link, 0, printLink);
         });
 	};
 	
