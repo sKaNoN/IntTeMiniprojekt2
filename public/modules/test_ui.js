@@ -140,7 +140,7 @@ define('modules/test_ui', ['jquery', 'modules/dataService'], function($, dataser
             dataservice.links.foreach(showLinks);
             
             dataservice.users.foreach(showUsers);
-        },
+        }
     };
 
     return ui;

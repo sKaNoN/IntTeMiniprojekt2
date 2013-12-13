@@ -16,6 +16,8 @@
 
 define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], function($, ui, test_ui, sammy, io) {
 
+    ui.init();
+
     var socket = io.connect('http://localhost:4730');
     socket.on('message', function(message){
         $.event.trigger({ type: message.action.toLowerCase(), what: message.type, id: message.id });
@@ -29,7 +31,22 @@ define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], functi
         this.get("#/login", function(context) {ui.logIn();});
         this.get("#/logout", function(context) {ui.logOut();});
         this.get("#/register", function(context) {ui.showRegister();});
-        this.get("#linkSubmit", function(context) {ui.showLinkSubmit();});
+        this.get("#/registered", function(context) {ui.register();});
+        this.get("#/linkSubmit", function(context) {ui.showLinkSubmit();});
+        this.get("#/addedLink", function(context) {ui.submitLink();});
+        this.get("#/link/:id", function(context) {ui.showComments(this.params.id);});
+        this.get("#/link/:id/voteUp", function(context) {ui.linkVoteUp(this.params.id);});
+        this.get("#/link/:id/voteDown", function(context) {ui.linkVoteDown(this.params.id);});
+        this.get("#/link/:id/comment", function(context) {ui.comment(this.params.id);});
+        this.get("#/comment/:id/voteUp", function(context) {ui.commentVoteUp(this.params.id);});
+        this.get("#/comment/:id/voteDown", function(context) {ui.commentVoteDown(this.params.id);});
+
+        this.bind("register-success", function() {this.redirect("#/");});
+        this.bind("login-success", function() {this.redirect("#/");});
+        this.bind("login-failed", function() {this.redirect("#/");});
+        this.bind("logout", function() {this.redirect("#/");});
+        this.bind("link-created", function() {this.redirect("#/");});
+
     });
 
     app.run("#/");

@@ -24,7 +24,7 @@
                 <h2 style="margin-top: 0"><a class="external" href="{{=it.url}}">{{=it.title}}</a></h2>
                 <small>By <strong>{{=it.author}}</strong></small>
                 <p>
-                    <a id="entry-comment-{{=it.id}}" href="#/entry/{{=it.id}}">Comments</a>
+                    <a id="linkComments{{=it.id}}" href="#/link/{{=it.id}}">Comments</a>
                 </p>
             </div>
         </div>
@@ -62,6 +62,7 @@
 
 </head>
 <body>
+
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <ul class="nav navbar-nav navbar-left">
         <li><a class="navbar-brand" href="#">Reddit Clone</a></li>
@@ -81,7 +82,7 @@
     <div id="logout" class="hidden">
         <ul class="nav navbar-nav navbar-right">
             <li><a id="linkSubmit" href="#/linkSubmit">Submit new Link</a><li>
-                <p class="navbar-text navPadding">Signed in as [username]</p>
+                <p class="navbar-text navPadding">Signed in as <span id="user_name"></span></p>
             </li>
             <li class="navMargin"><a href="#/logout">Logout</a></li>
         </ul>
@@ -90,24 +91,24 @@
 
 <div id="main">
     <div id="register" class="hidden">
-        <form role="form">
+        <form role="form" class="form col-md-3 col-md-offset-5" action="#/registered" method="post">
             <div class="form-group">
-                <label for="usernameInput">Username</label>
-                <input type="text" class="form-control" id="usernameInput" placeholder="Enter Username">
+                <label for="regUser">Username</label>
+                <input type="text" class="form-control" id="regUser" placeholder="Enter Username">
             </div>
             <div class="form-group">
-                <label for="passwordInput">Password</label>
-                <input type="password" class="form-control" id="passwordInput" placeholder="Enter Password">
+                <label for="regPwd">Password</label>
+                <input type="password" class="form-control" id="regPwd" placeholder="Enter Password">
             </div>
             <div class="form-group">
-                <label for="passwordInput2">Repeat Password</label>
-                <input type="text" class="form-control" id="passwordInput2" placeholder="Repeat Password">
+                <label for="regPwd2">Repeat Password</label>
+                <input type="text" class="form-control" id="regPwd2" placeholder="Repeat Password">
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>
     </div>
     <div id="submitLink" class="hidden">
-        <form role="form">
+        <form role="form" class="form col-md-5 col-md-offset-4" action="#/addedLink" method="post">
             <div class="form-group">
                 <label for="linkTitle">Title</label>
                 <input type="text" class="form-control" id="linkTitle" placeholder="Enter Title">
@@ -119,10 +120,10 @@
             <button type="submit" class="btn btn-default">Submit</button>
         </form>
     </div>
-    <div id="links">
-    </div>
+    <div id="links" class="hidden">
 
-    <div id="comments">
+    </div>
+    <div id="comments" class="hidden">
 
     </div>
 </div>

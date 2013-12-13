@@ -1,58 +1,131 @@
-define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/core'], function( $,  doT, sammy, dataservice){
+define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/core'], function ($, doT, sammy, dataservice) {
 
-    var linktemplate = doT.template($("#templateLink").text());
+    var templates = {};
+    templates.link = doT.template($("#templateLink").text());
+    templates.comment = doT.template($("#templateComment").text());
+    templates.commentEditor = doT.template($("#templateCommentEdit").text());
+
 
     function sortByRating(a, b) { // createTime is a string at this point - json ftw
         return a.rating.value == b.rating.value ? b.createTime.localeCompare(a.createTime) : b.rating.value - a.rating.value;
     }
 
+    function hideAll() {
+        $('#main >  div').addClass('hidden');
+    }
+
+    function hide(container) {
+        $(container).addClass("hidden");
+    }
+
+    function show(container) {
+        $(container).removeClass("hidden");
+    }
 
     var ui = {
 
-        hideAll : function() {
-            $('#main >  div').addClass('hidden');
-        },
-
-        showLinks : function() {
-            dataservice.links.getAll().then(function(data){
-                $("#links").empty();
-                $.each(data.sort(sortByRating), function(index, link) {
-                    $("#links").append(linktemplate(link));
-                });
-            });
-        },
-
-        showComments : function() {
-            dataservice.comments.getAll().then(function(data){
-                $("#comments").empty();
-                $.each(data.sort(sortByRating), function(index, link) {
-                    $("#comments").append(commenttemplate(link));
-                });
-            });
-        },
-
-        logIn : function() {
+        logIn: function () {
             dataservice.users.login($('#loginUser').val(), $('#loginPwd').val());
-
-            //provisorisch:
-            $('#logout').removeClass('hidden');
-            $('#login').addClass('hidden');
-
         },
 
-        logOut : function() {
+        logOut: function () {
             dataservice.users.logout();
-            $('#login').removeClass('hidden');
-            $('#logout').addClass('hidden');
+            hide('#logout');
+            show('#login');
         },
 
-       showRegister : function() {
-           $("#register").removeClass("hidden");
-       },
+        showRegister: function () {
+            hideAll();
+            show('#register');
+        },
 
-       showLinkSubmit : function() {
-           $("#linkSubmit").removeClass("hidden");
-       }
+        register: function () {
+            dataservice.users.register($('#regUser').val(), $('#regPwd').val());
+        },
+
+        showLinks: function () {
+            hideAll();
+            dataservice.links.getAll().then(function (data) {
+                $("#links").empty();
+                $.each(data.sort(sortByRating), function (index, link) {
+                    $("#links").append(templates.link(link));
+                });
+            });
+            show('#links');
+        },
+
+        showLinkSubmit: function () {
+            hideAll();
+            show('#submitLink');
+        },
+
+        submitLink: function () {
+            dataservice.links.add($('#linkTitle').val(), $('#linkURL').val());
+        },
+
+        linkVoteUp: function (id) {
+            dataservice.links.voteup(id);
+        },
+
+        linkVoteDown: function (id) {
+            dataservice.links.votedown(id);
+        },
+
+        showComments: function (linkId) {
+            hideAll()
+            dataservice.comments.getAll(linkId).then(function (data) {
+                $("#comments").empty();
+                $.each(data.sort(sortByRating), function (index, comment) {
+                    $("#comments").append(commenttemplate(comment));
+                });
+            });
+            show('#comments');
+        },
+
+        comment: function (id) {
+            dataservice.comments.addToLink(id, $('#submitComment').val());
+        },
+
+        commentVoteUp: function (id) {
+            dataservice.comments.voteup(id);
+        },
+
+        commentVoteDown: function (id) {
+            dataservice.comments.votedown(id);
+        },
+
+        init : function() {
+            $(document).on("login-success", function (user) {
+                $("#user_name").text(user.name);
+                hide("#login");
+                show("#logout");
+                sammy("body").trigger("login-success");
+            });
+
+            $(document).on("login-failed", function () {
+                alert("Login failed: Invalid username or password.");
+                sammy("body").trigger("login-failed");
+            })
+
+            $(document).on("logout", function () {
+                show("#login");
+                hide("#logout");
+                sammy("body").trigger("logout");
+            });
+
+            $(document).on("register-success", function () {
+                alert("Registration successful")
+                sammy("body").trigger("register-success");
+            });
+
+            $(document).on("register-failed", function () {
+                alert("Registration failed: Make sure you provided both a username and a password, or try a different username.");
+            });
+
+            $(document).on("link-created", function () {
+                sammy("body").trigger("link-created");
+            })
+        }
     }
 
     return ui;

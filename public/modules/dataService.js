@@ -15,7 +15,7 @@
             add: function(newTitle, newUrl) {
             	$.post("entry", { title: newTitle, url: newUrl }, function(newLink){
             		console.log("Created new Link: " + newLink.url);
-            		location.reload();
+                    $.event.trigger({ type: "link-created"});
             	});
             },
             voteup: function(id) {
@@ -29,7 +29,7 @@
             		console.log("Link voted down");
             		location.reload();
             	});
-            },
+            }
         },
         
         comments: {
@@ -56,7 +56,7 @@
             		console.log("Comment voted down");
             		location.reload();
             	});
-            },
+            }
         },
 
         users: {
@@ -64,7 +64,7 @@
                 console.log("Try login: " + username + " pw: " + password);
                 $.post("login", { name: username, password: password }, function(success){
                     if (success === true) {
-                        $.event.trigger({ type: "login", name: username });
+                        $.event.trigger({ type: "login-success", name: username });
                         console.log("Login success");
                     } else {
                         $.event.trigger({ type: "login-failed" });
@@ -75,6 +75,7 @@
             logout: function() {
             	$.post("logout", {}, function(success){
                     if (success === true) {
+                        $.event.trigger({ type: "logout"});
                         console.log("Log Out success");
                     } else {
                         console.log("Log Out failed");
@@ -85,6 +86,7 @@
         		console.log("Register: " + username + " pw: " + password);
         		$.post("register", { name: username, password: password }, function(success){
                     if (success === true) {
+                        $.event.trigger({ type: "register-success", name: username });
                         console.log("Register success");
                     } else {
                         console.log("Register failed");
@@ -98,7 +100,7 @@
             foreach: function(callback) {
             	var entries = $.getJSON('/users');
             	entries.then(callback);
-            },
+            }
         }
 
     };
