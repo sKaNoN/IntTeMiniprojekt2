@@ -71,6 +71,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
             dataservice.links.votedown(id);
         },
 
+        /*
         showComments: function (linkId) {
             hideAll()
             dataservice.comments.getAll(linkId).then(function (data) {
@@ -81,6 +82,35 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
             });
             show('#comments');
         },
+        */
+        
+        //untested show comments (mir fehlt style.css)
+        showComments: function (linkId) {
+            hideAll();
+        	var printComment = function(comment, level) {
+        		
+        		//TODO: Einrücken über CSS oder HTML (level gibt an wie viel)
+        		
+        		$("#comments").append(commenttemplate(comment));
+        		
+        		$.each(comment.comments.sort(sortByRating), function(index, c) {
+        			printComment(c, level+1);
+                });
+        	};
+            var link = dataservice.links.get(linkId);
+            link.then(function (data) {
+            	$("#comments").empty();
+            	
+            	//Evtl do de link azeige? so wie im JSF?
+            	//$("#comments").append(templates.link(link));
+            
+                $.each(link.comments.sort(sortByRating), function (index, comment) {
+                	printComment(comment, 1);
+                });
+            });
+            show('#comments');
+        },  
+        //end untested
 
         comment: function (id) {
             dataservice.comments.addToLink(id, $('#submitComment').val());
