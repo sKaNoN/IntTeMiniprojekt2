@@ -15,12 +15,12 @@
     <script id="templateLink" type="text/template">
         <div style="padding-top: 100px">
         <div class="container row">
-            <div class="col-md-1 col-xs-1">
+            <div class="col-md-1 col-xs-2">
                 <a id="linkVoteUp{{=it.id}}" href="#/link/{{=it.id}}/voteUp">Vote Up</a>
                 <p style=" margin-top: 0.2em; margin-bottom: 0.2em;" id="linkRating{{=it.id}}">{{=it.rating.value}}</p>
                 <a id="linkVoteDown{{=it.id}}" href="#/link/{{=it.id}}/voteDown">Vote Down</a>
             </div>
-            <div class="col-md-10 col-xs-10">
+            <div class="col-md-10 col-xs-9">
                 <h2 style="margin-top: 0"><a class="external" href="{{=it.url}}">{{=it.title}}</a></h2>
                 <small>By <strong>{{=it.author}}</strong></small>
                 <p>
@@ -33,12 +33,12 @@
     <script id="templateComment" type="text/template">
         <div style="padding-top: 100px">
             <div class="container row">
-                <div class="col-md-1 col-xs-1">
+                <div class="col-md-1 col-xs-2">
                     <a id="commentVoteUp{{=it.id}}" href="#/comment/{{=it.id}}/voteUp">Vote Up</a>
                     <p style=" margin-top: 0.2em; margin-bottom: 0.2em;" id="commentRating{{=it.id}}">{{=it.rating.value}}</p>
                     <a id="commentVoteDown{{=it.id}}" href="#/comment/{{=it.id}}/voteDown">Vote Down</a>
                 </div>
-                <div class="col-md-10 col-xs-10">
+                <div class="col-md-10 col-xs-9">
                     <p style="margin-top: 0">{{=it.text}}</p>
                     <small>By <strong>{{=it.author}}</strong></small>
                 </div>

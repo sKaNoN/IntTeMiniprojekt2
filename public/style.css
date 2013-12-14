@@ -1,0 +1,17 @@
+.navMargin {
+    padding-right: 17px;
+}
+#main {
+    clear: both;
+    padding-left: 20px;
+}
+@media screen and (max-device-width: 300x) {
+    #main {
+        padding-top: 200px;
+    }
+}
+@media screen and (min-device-width: 301px) {
+    #main {
+        padding-top: 50px;
+    }
+}
