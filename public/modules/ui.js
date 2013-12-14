@@ -88,16 +88,21 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         showComments: function (linkId) {
             hideAll();
         	var printComment = function(comment, level) {
+        		
         		//TODO: Einrücken über CSS oder HTML (level gibt an wie viel)
+        		
         		$("#comments").append(commenttemplate(comment));
-        		$.each(node.comments, function(index, c) {
+        		
+        		$.each(comment.comments.sort(sortByRating), function(index, c) {
         			printComment(c, level+1);
                 });
         	};
             var link = dataservice.links.get(linkId);
             link.then(function (data) {
             	$("#comments").empty();
-            	$("#comments").append(templates.link(link));
+            	
+            	//Evtl do de link azeige? so wie im JSF?
+            	//$("#comments").append(templates.link(link));
             
                 $.each(link.comments.sort(sortByRating), function (index, comment) {
                 	printComment(comment, 1);
