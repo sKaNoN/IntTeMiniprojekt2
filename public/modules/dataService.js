@@ -21,13 +21,11 @@
             voteup: function(id) {
             	$.post("entry/" + id + "/up", {}, function(){
             		console.log("Link voted up");
-            		location.reload();
             	});
             },
             votedown: function(id) {
             	$.post("entry/" + id + "/down", {}, function(){
             		console.log("Link voted down");
-            		location.reload();
             	});
             }
         },
@@ -36,25 +34,21 @@
         	addToLink: function(id, text) {
             	$.post("entry/" + id + "/comment", {text: text}, function(){
             		console.log("Link comment added");
-            		location.reload();
             	});
         	},
         	addToComment: function(id, text) {
             	$.post("comment/" + id + "/", {text: text}, function(){
             		console.log("Comment comment added");
-            		location.reload();
             	});
         	},
         	voteup: function(id) {
             	$.post("comment/" + id + "/up", {}, function(){
             		console.log("Comment voted up");
-            		location.reload();
             	});
             },
             votedown: function(id) {
             	$.post("comment/" + id + "/down", {}, function(){
             		console.log("Comment voted down");
-            		location.reload();
             	});
             }
         },
