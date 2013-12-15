@@ -19,13 +19,14 @@
             	});
             },
             voteup: function(id) {
-            	$.post("entry/" + id + "/up", {}, function(){
-            		console.log("Link voted up");
+            	console.log("voteup link: " + id);
+            	$.post("entry/" + id + "/up", {}, function(rating){
+            		console.log("Link voted up; Rating: " + rating);
             	});
             },
             votedown: function(id) {
             	$.post("entry/" + id + "/down", {}, function(){
-            		console.log("Link voted down");
+            		console.log("Link voted down; Rating: " + rating);
             	});
             }
         },

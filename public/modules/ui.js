@@ -4,6 +4,8 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     templates.link = doT.template($("#templateLink").text());
     templates.comment = doT.template($("#templateComment").text());
     templates.commentEditor = doT.template($("#templateCommentEdit").text());
+    
+    var currentLink = -1;
 
 
     function sortByRating(a, b) { // createTime is a string at this point - json ftw
@@ -65,10 +67,12 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
         linkVoteUp: function (id) {
             dataservice.links.voteup(id);
+            this.showLinks();
         },
 
         linkVoteDown: function (id) {
             dataservice.links.votedown(id);
+            this.showLinks();
         },
         showComments: function (linkId) {
             hideAll();
@@ -91,6 +95,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
                 	printComment(comment, 1);
                 });
             });
+            currentLink = linkId;
             show('#comments');
         },  
         comment: function (id) {
@@ -99,10 +104,12 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
         commentVoteUp: function (id) {
             dataservice.comments.voteup(id);
+            this.showComments(currentLink);
         },
 
         commentVoteDown: function (id) {
             dataservice.comments.votedown(id);
+            this.showComments(currentLink);
         },
 
         init : function() {
