@@ -6,6 +6,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     templates.commentEditor = doT.template($("#templateCommentEdit").text());
     
     var currentLink = -1;
+    var currentUser = undefined;
 
 
     function sortByRating(a, b) { // createTime is a string at this point - json ftw
@@ -24,6 +25,16 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         $(container).removeClass("hidden");
     }
 
+    function checkUser() {
+        if (currentUser) {
+            show('#logout');
+            hide('#login');
+        } else {
+            hide('#logout');
+            show('#login');
+        }
+    }
+
     var ui = {
 
         logIn: function () {
@@ -32,13 +43,15 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
         logOut: function () {
             dataservice.users.logout();
-            hide('#logout');
-            show('#login');
+            currentUser = undefined;
         },
 
         showRegister: function () {
             hideAll();
-            show('#register');
+            checkUser();
+            if (!currentUser) {
+                show('#register');
+            }
         },
 
         register: function () {
@@ -47,6 +60,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
         showLinks: function () {
             hideAll();
+            checkUser();
             dataservice.links.getAll().then(function (data) {
                 $("#links").empty();
                 $.each(data.sort(sortByRating), function (index, link) {
@@ -58,7 +72,10 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
         showLinkSubmit: function () {
             hideAll();
-            show('#submitLink');
+            checkUser();
+            if (currentUser) {
+                show('#submitLink');
+            }
         },
 
         submitLink: function () {
@@ -76,6 +93,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         },
         showComments: function (linkId) {
             hideAll();
+            checkUser();
         	var printComment = function(comment, level) {
         		
         		comment.margin = level;
@@ -90,6 +108,9 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
             	$("#comments").empty();
             	$("#comments").append(templates.link(link));
+                if (currentUser) {
+                 $("#comments").append(templates.commentEditor(link));
+                }
             
                 $.each(link.comments.sort(sortByRating), function (index, comment) {
                 	printComment(comment, 1);
@@ -98,8 +119,9 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
             currentLink = linkId;
             show('#comments');
         },  
-        comment: function (id) {
+        commentLink: function (id) {
             dataservice.comments.addToLink(id, $('#submitComment').val());
+            this.showComments(currentLink);
         },
 
         commentVoteUp: function (id) {
@@ -112,22 +134,24 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
             this.showComments(currentLink);
         },
 
+        commentComment: function (id) {
+            dataservice.comments.addToComment(id, $('#submitComment').val());
+        },
+
         init : function() {
             $(document).on("login-success", function (user) {
                 $("#user_name").text(user.name);
-                hide("#login");
-                show("#logout");
+                currentUser=user.name;
                 sammy("body").trigger("login-success");
             });
 
             $(document).on("login-failed", function () {
                 alert("Login failed: Invalid username or password.");
                 sammy("body").trigger("login-failed");
-            })
+            });
 
             $(document).on("logout", function () {
-                show("#login");
-                hide("#logout");
+                currentUser=undefined;
                 sammy("body").trigger("logout");
             });
 
@@ -142,7 +166,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
             $(document).on("link-created", function () {
                 sammy("body").trigger("link-created");
-            })
+            });
         }
     }
 
