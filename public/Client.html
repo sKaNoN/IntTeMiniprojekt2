@@ -13,9 +13,8 @@
 
 
     <script id="templateLink" type="text/template">
-        <div style="padding-top: 100px">
-        <div class="container row">
-            <div class="col-md-1 col-xs-2">
+        <div class="container row link">
+            <div class="col-md-2 col-xs-3">
                 <a id="linkVoteUp{{=it.id}}" href="#/link/{{=it.id}}/voteUp">Vote Up</a>
                 <p style=" margin-top: 0.2em; margin-bottom: 0.2em;" id="linkRating{{=it.id}}">{{=it.rating.value}}</p>
                 <a id="linkVoteDown{{=it.id}}" href="#/link/{{=it.id}}/voteDown">Vote Down</a>
@@ -31,35 +30,37 @@
     </script>
 
     <script id="templateComment" type="text/template">
-        <div style="padding-top: 60px; margin-left:{{=it.margin * 50}}px">
-            <div class="container row">
-                <div class="col-md-1 col-xs-2">
+        <div style="margin-left:{{=it.margin * 50}}px">
+            <div class="container row comment">
+                <div class="col-md-1 col-xs-2 centered">
                     <a id="commentVoteUp{{=it.id}}" href="#/comment/{{=it.id}}/voteUp">Vote Up</a>
-                    <p style=" margin-top: 0.2em; margin-bottom: 0.2em;" id="commentRating{{=it.id}}">{{=it.rating.value}}</p>
+
+                    <p style=" margin-top: 0.2em; margin-bottom: 0.2em;" id="commentRating{{=it.id}}">
+                        {{=it.rating.value}}</p>
                     <a id="commentVoteDown{{=it.id}}" href="#/comment/{{=it.id}}/voteDown">Vote Down</a>
                 </div>
-                <div class="col-md-10 col-xs-9">
-                    <p style="margin-top: 0">{{=it.text}}</p>
+                <div class="col-md-11 col-xs-10" >
+                    <pre style="margin-top: 0">{{=it.text}}</pre>
                     <small>By <strong>{{=it.author}}</strong></small>
                 </div>
             </div>
     </script>
 
     <script id="templateCommentEdit" type="text/template">
-        <div style="padding-top: 100px">
-            <div class="container row">
-                <div class="col-md-12 col-xs-12">
-                    <p>Enter your comment here: </p>
-                </div>
-                <div class="col-md-12 col-xs-12">
-                    <form class="form" id="formComment" action="#/link/{{=it.id}}/comment" method="get" accept-charset="utf-8">
-                        <div class="form-group">
-                         <textarea id="submitComment" placeholder="Text" />
-                        </div>
-                        <button type="submit" id="btnComment">Submit Comment</button>
-                    </form>
-                </div>
+        <div class="container row" style="margin-bottom: 10px">
+            <div class="col-md-12 col-xs-12">
+                <p>Comment: </p>
             </div>
+            <div class="col-md-12 col-xs-12">
+                <form class="form" id="formComment" action="#/link/{{=it.id}}/comment" method="get"
+                      accept-charset="utf-8">
+                    <div class="form-group">
+                        <textarea id="submitComment" placeholder="Enter Comment"/>
+                    </div>
+                    <button type="submit" id="btnComment">Submit Comment</button>
+                </form>
+            </div>
+        </div>
     </script>
 
 </head>
@@ -73,7 +74,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#/register">Register</a></li>
             <li>
-                <input name="username"id="loginUser" type="text" placeholder="Username">
+                <input name="username" id="loginUser" type="text" placeholder="Username">
             </li>
             <li>
                 <input name="password" id="loginPwd" type="password" placeholder="Password">
@@ -83,8 +84,9 @@
     </div>
     <div id="logout" class="hidden">
         <ul class="nav navbar-nav navbar-right">
-            <li><a id="linkSubmit" href="#/linkSubmit">Submit new Link</a><li>
-                <p class="navbar-text navPadding">Signed in as <span id="user_name"></span></p>
+            <li><a id="linkSubmit" href="#/linkSubmit">Submit new Link</a>
+            <li>
+                <p class="navbar-text navPadding">Signed in as <strong id="user_name"></strong></p>
             </li>
             <li class="navMargin"><a href="#/logout">Logout</a></li>
         </ul>

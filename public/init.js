@@ -24,7 +24,7 @@ define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], functi
         console.log("Message recieved: " + message.action.toLowerCase());
     });
 
-	test_ui.test();
+	//test_ui.test();
 
     var app = sammy("body", function(){
         this.get("#/", function(context){ ui.showLinks();});
@@ -40,14 +40,13 @@ define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], functi
         this.get("#/link/:id/comment", function(context) {ui.commentLink(this.params.id);});
         this.get("#/comment/:id/voteUp", function(context) {ui.commentVoteUp(this.params.id);});
         this.get("#/comment/:id/voteDown", function(context) {ui.commentVoteDown(this.params.id);});
-        this.get("#/comment/:id/comment", function(context) {ui.commentComment(this.params.id);});
+        //this.get("#/comment/:id/comment", function(context) {ui.commentComment(this.params.id);});
 
         this.bind("register-success", function() {this.redirect("#/");});
         this.bind("login-success", function() {this.redirect("#/");});
         this.bind("login-failed", function() {this.redirect("#/");});
         this.bind("logout", function() {this.redirect("#/");});
         this.bind("link-created", function() {this.redirect("#/");});
-        this.bind("commented", linkId, function() {this.redirect("#/link/"+linkId)})
 
     });
 
