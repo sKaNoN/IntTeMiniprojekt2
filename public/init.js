@@ -18,7 +18,7 @@ define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], functi
 
     ui.init();
 
-    var socket = io.connect('http://localhost:4730');
+    var socket = io.connect('http://192.168.0.102:4730');
     socket.on('message', function(message){
         //$.event.trigger({ type: message.action.toLowerCase(), what: message.type, id: message.id });
         console.log("Message recieved: " + message.action.toLowerCase());
@@ -50,15 +50,13 @@ define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], functi
         this.get("#/linkSubmit", function(context) {ui.showLinkSubmit();});
         this.get("#/addedLink", function(context) {ui.submitLink();});
         this.get("#/link/:id", function(context) {ui.showComments(this.params.id);});
-        this.get("#/link/:id/voteUp", function(context) {ui.linkVoteUp(this.params.id);});
-        this.get("#/link/:id/voteDown", function(context) {ui.linkVoteDown(this.params.id);});
-        this.get("#/link/:id/comment", function(context) {
-        	ui.commentLink(this.params.id);
-        	this.redirect("#/link/" + this.params.id);
-        });
-        this.get("#/comment/:id/voteUp", function(context) {ui.commentVoteUp(this.params.id);});
-        this.get("#/comment/:id/voteDown", function(context) {ui.commentVoteDown(this.params.id);});
-        //this.get("#/comment/:id/comment", function(context) {ui.commentComment(this.params.id);});
+    		
+        this.get("#/link/:id/voteUp", function(context) {ui.linkVoteUp(this.params.id); this.redirect(ui.getUrl());});
+        this.get("#/link/:id/voteDown", function(context) {ui.linkVoteDown(this.params.id); this.redirect(ui.getUrl());});
+        this.get("#/link/:id/comment", function(context) { ui.commentLink(this.params.id); this.redirect(ui.getUrl());});
+        this.get("#/comment/:id/voteUp", function(context) {ui.commentVoteUp(this.params.id); this.redirect(ui.getUrl());});
+        this.get("#/comment/:id/voteDown", function(context) {ui.commentVoteDown(this.params.id); this.redirect(ui.getUrl());});
+        //this.get("#/comment/:id/comment", function(context) {ui.commentComment(this.params.id); this.redirect(ui.getUrl());});
 
         this.bind("register-success", function() {this.redirect("#/");});
         this.bind("register-failed", function() {this.redirect("#/register");});

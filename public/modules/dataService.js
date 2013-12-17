@@ -46,8 +46,8 @@
         comments: {
         	addToLink: function(id, text) {
         		console.log("try to add: Link comment");
-            	$.post("entry/" + id + "/comment", {text: text}, function(){
-            		console.log("Link comment added");
+            	$.post("entry/" + id + "/comment", {text: text}, function(comment){
+            		console.log("Link comment added from User: " + comment.author);
             	});
         	},
         	addToComment: function(id, text) {

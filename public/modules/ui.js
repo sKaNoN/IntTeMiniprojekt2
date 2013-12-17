@@ -84,11 +84,29 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 				console.log("no view refresh required!!!");
     		}
     	},
-    	
-    	showCurrentLink: function() {
-    		showComments(currentLink);
-    	},
+    	getUrl: function() {
+    		
+    		console.log("get url current state: " + currentState);
+    		switch (currentState) {
 
+    		case uiState.VIEW_LINKS:
+    			return "#/";
+    			break;
+    		case uiState.VIEW_COMMENTS:
+    			console.log("get Url view comments")
+    			return "#/link/" + currentLink;
+    			break;
+    		case uiState.VIEW_REGISTER:
+    			return "#/register";
+    			break;
+    		case uiState.VIEW_SUBMIT:
+    			return "#/linkSubmit";
+    			break;
+    		case uiState.VIEW_UNDEFINED:
+			default:
+				return "#/";
+    		}
+    	},
         logIn: function () {
             dataservice.users.login($('#loginUser').val(), $('#loginPwd').val());
         },
@@ -124,6 +142,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
                     $("#links").append(templates.link(link));
                 });
             });
+            console.log("show LINKS !!!!!!!!!!!!!!!!!!!!!!!!!!!")
             currentState = uiState.VIEW_LINKS;
             show('#links');
         },
@@ -139,17 +158,14 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
         submitLink: function () {
             dataservice.links.add($('#linkTitle').val(), $('#linkURL').val());
-            this.showLinks();
         },
 
         linkVoteUp: function (id) {
             dataservice.links.voteup(id);
-            this.showLinks();
         },
 
         linkVoteDown: function (id) {
             dataservice.links.votedown(id);
-            this.showLinks();
         },
         showComments: function (linkId) {
             hideAll();
@@ -183,22 +199,18 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         commentLink: function (id) {
         	console.log("UI: comment Link");
             dataservice.comments.addToLink(id, $('#submitComment').val());
-            this.showComments(currentLink);
         },
 
         commentVoteUp: function (id) {
             dataservice.comments.voteup(id);
-            this.showComments(currentLink);
         },
 
         commentVoteDown: function (id) {
             dataservice.comments.votedown(id);
-            this.showComments(currentLink);
         },
 
         commentComment: function (id) {
             dataservice.comments.addToComment(id, $('#submitComment').val());
-            this.showComments(currentLink);
         },
 
         init : function() {
