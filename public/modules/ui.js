@@ -13,6 +13,8 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     }
 
     function hideAll() {
+        hide('#login');
+        hide('#logout');
         $('#main >  div').addClass('hidden');
     }
 
@@ -25,11 +27,12 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     }
 
     function checkUser() {
-        if (dataservice.users.loggedIn()) {
+        console.log("checkUser: " + dataservice.users.loggedIn());
+        if (dataservice.users.loggedIn() == 'true') {
+            console.log("checkUser intern: " + dataservice.users.loggedIn())
+            $("#user_name").text(dataservice.users.getCurrentUser());
             show('#logout');
-            hide('#login');
         } else {
-            hide('#logout');
             show('#login');
         }
     }
@@ -65,7 +68,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         showRegister: function () {
             hideAll();
             checkUser();
-            if (!dataservice.users.loggedIn()) {
+            if (dataservice.users.loggedIn() == 'false') {
                 show('#register');
             }
         },
@@ -94,7 +97,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         showLinkSubmit: function () {
             hideAll();
             checkUser();
-            if (dataservice.users.loggedIn()) {
+            if (dataservice.users.loggedIn() == 'true') {
                 show('#submitLink');
             }
         },
@@ -161,8 +164,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         },
 
         init : function() {
-            $(document).on("login-success", function (user) {
-                $("#user_name").text(user.name);
+            $(document).on("login-success", function() {
                 sammy("body").trigger("login-success");
                 showSuccess("Login successful");
             });

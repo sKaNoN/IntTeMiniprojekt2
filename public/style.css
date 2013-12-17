@@ -30,7 +30,8 @@ small {
     padding-top: 5px;
     padding-bottom: 5px;
     background: linear-gradient(white, #d3d3d3);
-    box-shadow: 3px 3px 3px #B0B0B0 ;
+    box-shadow: 3px 3px 3px #B0B0B0;
+    width: 93%;
 }
 
 .navMargin {

@@ -1,11 +1,16 @@
 ﻿define('modules/dataService', ['jquery', 'modules/core'], function ($) {
 
-    function setUser(user) {
+    function setUser(user, status) {
     	sessionStorage.currentUser = user;
+        sessionStorage.userStatus = status;
     };
     function getUser() {
     	return sessionStorage.currentUser;
     };
+
+    function getLoginStatus() {
+        return sessionStorage.userStatus;
+    }
     
     var dataservice = {
         links: {
@@ -66,11 +71,11 @@
                 console.log("Try login: " + username + " pw: " + password);
                 $.post("login", { name: username, password: password }, function(success){
                     if (success === true) {
-                    	setUser(username);
-                        $.event.trigger({ type: "login-success", name: username });
+                    	setUser(username, true);
+                        $.event.trigger({ type: "login-success"});
                         console.log("Login success");
                     } else {
-                    	setUser(undefined);
+                        setUser(undefined, false);
                         $.event.trigger({ type: "login-failed" });
                         console.log("Login failed");
                     }
@@ -79,10 +84,11 @@
             logout: function() {
             	$.post("logout", {}, function(success){
                     if (success === true) {
+                        setUser(undefined, false);
                         $.event.trigger({ type: "logout"});
-                        setUser(undefined);
                         console.log("Log Out success");
                     } else {
+
                         console.log("Log Out failed");
                     }
                 });
@@ -107,15 +113,12 @@
             	var entries = $.getJSON('/users');
             	entries.then(callback);
             },
-            currentUser : function() {
+            getCurrentUser : function() {
             	return getUser();
             },
             loggedIn : function() {
-                console.log("user: " + getUser());
-                if (getUser()) {
-                    return true;
-                }
-                return false;
+                console.log("user: " + getUser() + ", " + getLoginStatus());
+                return getLoginStatus();
             }
         }
 
