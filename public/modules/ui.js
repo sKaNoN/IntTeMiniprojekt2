@@ -1,4 +1,4 @@
-define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/core'], function ($, doT, sammy, dataservice) {
+define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/core', 'bootstrap'], function ($, doT, sammy, dataservice) {
 
     var templates = {};
     templates.link = doT.template($("#templateLink").text());
