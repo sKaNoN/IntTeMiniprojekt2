@@ -39,18 +39,22 @@ small {
 #main {
     padding-left: 20px;
 }
+
+#alert {
+    width: 99%;
+}
+
+#alert strong {
+    font-size: 14px;
+}
+
+#alert p {
+    font-size: 14px;
+}
 @media screen and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2){
 
     #main {
         margin-top: 210px;
-    }
-
-    .link {
-        width: 99%;
-    }
-
-    .comment {
-        width: 99%;
     }
 }
 @media screen and (min-device-width: 481px) {
@@ -68,11 +72,11 @@ small {
     }
 
     .link {
-        width: 60%;
         height: 100px;
     }
 
-    .comment {
-        width: 60%;
+    .voteing {
+        padding-top: 9px;
+        text-align: center;
     }
 }

@@ -14,13 +14,13 @@
 
     <script id="templateLink" type="text/template">
         <div class="container row link">
-            <div class="col-md-2 col-xs-3">
+            <div class="col-md-2 col-xs-3 voteing">
                 <a id="linkVoteUp{{=it.id}}" href="#/link/{{=it.id}}/voteUp">Vote Up</a>
                 <p style=" margin-top: 0.2em; margin-bottom: 0.2em;" id="linkRating{{=it.id}}">{{=it.rating.value}}</p>
                 <a id="linkVoteDown{{=it.id}}" href="#/link/{{=it.id}}/voteDown">Vote Down</a>
             </div>
             <div class="col-md-10 col-xs-9">
-                <h2 style="margin-top: 0"><a class="external" href="{{=it.url}}">{{=it.title}}</a></h2>
+                <h2 style="margin-top: 0"><a class="external" href="{{=it.url}}" target="_blank">{{=it.title}}</a></h2>
                 <small>By <strong>{{=it.author}}</strong></small>
                 <p>
                     <a id="linkComments{{=it.id}}" href="#/link/{{=it.id}}">Comments</a>
@@ -32,14 +32,14 @@
     <script id="templateComment" type="text/template">
         <div style="margin-left:{{=it.margin * 50}}px">
             <div class="container row comment">
-                <div class="col-md-1 col-xs-2 centered">
+                <div class="col-md-2 col-xs-3 centered" style="text-align: center">
                     <a id="commentVoteUp{{=it.id}}" href="#/comment/{{=it.id}}/voteUp">Vote Up</a>
 
                     <p style=" margin-top: 0.2em; margin-bottom: 0.2em;" id="commentRating{{=it.id}}">
                         {{=it.rating.value}}</p>
                     <a id="commentVoteDown{{=it.id}}" href="#/comment/{{=it.id}}/voteDown">Vote Down</a>
                 </div>
-                <div class="col-md-11 col-xs-10" >
+                <div class="col-md-10 col-xs-9" >
                     <pre style="margin-top: 0">{{=it.text}}</pre>
                     <small>By <strong>{{=it.author}}</strong></small>
                 </div>
@@ -94,7 +94,7 @@
 </nav>
 
 <div id="main">
-    <div id="message" class="hidden">
+    <div id="alert" class="alert">
 
     </div>
     <div id="register" class="hidden">
@@ -109,7 +109,7 @@
             </div>
             <div class="form-group">
                 <label for="regPwd2">Repeat Password</label>
-                <input type="text" class="form-control" id="regPwd2" placeholder="Repeat Password">
+                <input type="password" class="form-control" id="regPwd2" placeholder="Repeat Password">
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>

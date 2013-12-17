@@ -1,5 +1,7 @@
 ﻿define('modules/dataService', ['jquery', 'modules/core'], function ($) {
 
+    var currentUser = undefined;
+
     var dataservice = {
         links: {
             getAll: function() {
@@ -59,9 +61,11 @@
                 console.log("Try login: " + username + " pw: " + password);
                 $.post("login", { name: username, password: password }, function(success){
                     if (success === true) {
+                        currentUser=username;
                         $.event.trigger({ type: "login-success", name: username });
                         console.log("Login success");
                     } else {
+                        currentUser=undefined;
                         $.event.trigger({ type: "login-failed" });
                         console.log("Login failed");
                     }
@@ -71,6 +75,7 @@
             	$.post("logout", {}, function(success){
                     if (success === true) {
                         $.event.trigger({ type: "logout"});
+                        currentUser=undefined;
                         console.log("Log Out success");
                     } else {
                         console.log("Log Out failed");
@@ -81,9 +86,10 @@
         		console.log("Register: " + username + " pw: " + password);
         		$.post("register", { name: username, password: password }, function(success){
                     if (success === true) {
-                        $.event.trigger({ type: "register-success", name: username });
+                        $.event.trigger({ type: "register-success"});
                         console.log("Register success");
                     } else {
+                        $.event.trigger({ type: "register-failed"});
                         console.log("Register failed");
                     }
                 });
@@ -95,6 +101,13 @@
             foreach: function(callback) {
             	var entries = $.getJSON('/users');
             	entries.then(callback);
+            },
+            loggedIn : function() {
+                console.log("user: " + currentUser);
+                if (currentUser) {
+                    return true;
+                }
+                return false;
             }
         }
 

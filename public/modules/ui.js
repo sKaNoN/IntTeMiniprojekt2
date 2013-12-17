@@ -6,7 +6,6 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     templates.commentEditor = doT.template($("#templateCommentEdit").text());
     
     var currentLink = -1;
-    var currentUser = undefined;
 
 
     function sortByRating(a, b) { // createTime is a string at this point - json ftw
@@ -26,13 +25,31 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     }
 
     function checkUser() {
-        if (currentUser) {
+        if (dataservice.users.loggedIn()) {
             show('#logout');
             hide('#login');
         } else {
             hide('#logout');
             show('#login');
         }
+    }
+
+    function showError(info, text) {
+        $('#alert').removeClass('alert-success');
+        $('#alert').addClass('alert-danger');
+        $('#alert').empty();
+        var message = "<p> <strong>" + info +"</strong>"+text+"</p>";
+        $('#alert').append(message);
+        show('#alert');
+    }
+
+    function showSuccess(info) {
+        $('#alert').removeClass('alert-danger');
+        $('#alert').addClass('alert-success');
+        $('#alert').empty();
+        var message = "<p> <strong>" + info +"</strong></p>";
+        $('#alert').append(message);
+        show('#alert');
     }
 
     var ui = {
@@ -43,19 +60,23 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
         logOut: function () {
             dataservice.users.logout();
-            currentUser = undefined;
         },
 
         showRegister: function () {
             hideAll();
             checkUser();
-            if (!currentUser) {
+            if (!dataservice.users.loggedIn()) {
                 show('#register');
             }
         },
 
         register: function () {
-            dataservice.users.register($('#regUser').val(), $('#regPwd').val());
+            if ($('#regPwd').val() == $('#regPwd2').val()) {
+                dataservice.users.register($('#regUser').val(), $('#regPwd').val());
+            } else {
+                sammy("body").trigger("register-failed");
+                showError("Registration failed: ", "Passwords do not match!");
+            }
         },
 
         showLinks: function () {
@@ -73,7 +94,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         showLinkSubmit: function () {
             hideAll();
             checkUser();
-            if (currentUser) {
+            if (dataservice.users.loggedIn()) {
                 show('#submitLink');
             }
         },
@@ -108,7 +129,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
             	$("#comments").empty();
             	$("#comments").append(templates.link(link));
-                if (currentUser) {
+                if (dataservice.users.loggedIn()) {
                  $("#comments").append(templates.commentEditor(link));
                 }
             
@@ -136,36 +157,38 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
         commentComment: function (id) {
             dataservice.comments.addToComment(id, $('#submitComment').val());
+            this.showComments(currentLink);
         },
 
         init : function() {
             $(document).on("login-success", function (user) {
                 $("#user_name").text(user.name);
-                currentUser=user.name;
                 sammy("body").trigger("login-success");
+                showSuccess("Login successful");
             });
 
             $(document).on("login-failed", function () {
-                alert("Login failed: Invalid username or password.");
                 sammy("body").trigger("login-failed");
+                showError("Login failed: ", "Invalid username or password.");
             });
 
             $(document).on("logout", function () {
-                currentUser=undefined;
                 sammy("body").trigger("logout");
             });
 
             $(document).on("register-success", function () {
-                alert("Registration successful")
                 sammy("body").trigger("register-success");
+                showSuccess("Registration successful");
             });
 
             $(document).on("register-failed", function () {
-                alert("Registration failed: Make sure you provided both a username and a password, or try a different username.");
+                sammy("body").trigger("register-failed");
+                showError("Registration failed: ", "Make sure you provided both a username and a password, or try a different username.");
             });
 
             $(document).on("link-created", function () {
                 sammy("body").trigger("link-created");
+                showSuccess("Link submitted");
             });
         }
     }

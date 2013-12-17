@@ -43,11 +43,11 @@ define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], functi
         //this.get("#/comment/:id/comment", function(context) {ui.commentComment(this.params.id);});
 
         this.bind("register-success", function() {this.redirect("#/");});
+        this.bind("register-failed", function() {this.redirect("#/register");});
         this.bind("login-success", function() {this.redirect("#/");});
         this.bind("login-failed", function() {this.redirect("#/");});
         this.bind("logout", function() {this.redirect("#/");});
         this.bind("link-created", function() {this.redirect("#/");});
-
     });
 
     app.run("#/");
