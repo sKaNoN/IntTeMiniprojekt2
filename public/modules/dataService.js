@@ -106,7 +106,6 @@
                 });
         	},
         	getAll: function() {
-        		console.log("Read all Users");
         		return $.getJSON('/users');
         	},
             foreach: function(callback) {
@@ -117,7 +116,6 @@
             	return getUser();
             },
             loggedIn : function() {
-                console.log("user: " + getUser() + ", " + getLoginStatus());
                 return getLoginStatus();
             }
         }

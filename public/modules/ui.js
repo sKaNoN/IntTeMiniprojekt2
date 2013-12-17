@@ -6,8 +6,16 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     templates.commentEditor = doT.template($("#templateCommentEdit").text());
     
     var currentLink = -1;
-
-
+    
+    var uiState = {
+		VIEW_UNDEFINED: "viewUndefined",
+    	VIEW_LINKS: "viewLinks",
+    	VIEW_COMMENTS: "viewComments",
+    	VIEW_REGISTER: "viewRegister",
+    	VIEW_SUBMIT: "viewSubmit"
+    };
+    var currentState = uiState.VIEW_UNDEFINED;
+    
     function sortByRating(a, b) { // createTime is a string at this point - json ftw
         return a.rating.value == b.rating.value ? b.createTime.localeCompare(a.createTime) : b.rating.value - a.rating.value;
     }
@@ -27,9 +35,8 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     }
 
     function checkUser() {
-        console.log("checkUser: " + dataservice.users.loggedIn());
         if (dataservice.users.loggedIn() == 'true') {
-            console.log("checkUser intern: " + dataservice.users.loggedIn())
+            console.log("checked: User logged in: " + dataservice.users.getCurrentUser());
             $("#user_name").text(dataservice.users.getCurrentUser());
             show('#logout');
         } else {
@@ -56,6 +63,27 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     }
 
     var ui = {
+    		
+		refresh: function() {
+    		console.log("refres ui called");
+    		
+    		switch (currentState) {
+
+    		case uiState.VIEW_LINKS: //"viewLinks",
+    			console.log("refreshing view links");
+    			this.showLinks();
+    			break;
+    		case uiState.VIEW_COMMENTS: //"viewComments",
+    			console.log("refreshing view comments");
+    			this.showComments(currentLink);
+    			break;
+    		case uiState.VIEW_REGISTER: //"viewRegister",
+    		case uiState.VIEW_SUBMIT: //"viewSubmit"
+    		case uiState.VIEW_UNDEFINED: //"viewUndefined",
+			default:
+				console.log("no view refresh required!!!");
+    		}
+    	},
 
         logIn: function () {
             dataservice.users.login($('#loginUser').val(), $('#loginPwd').val());
@@ -66,9 +94,10 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         },
 
         showRegister: function () {
-            hideAll();
-            checkUser();
             if (dataservice.users.loggedIn() == 'false') {
+                hideAll();
+                checkUser();
+                currentState = uiState.VIEW_REGISTER;
                 show('#register');
             }
         },
@@ -91,13 +120,15 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
                     $("#links").append(templates.link(link));
                 });
             });
+            currentState = uiState.VIEW_LINKS;
             show('#links');
         },
 
         showLinkSubmit: function () {
-            hideAll();
-            checkUser();
-            if (dataservice.users.loggedIn() == 'true') {
+        	if (dataservice.users.loggedIn() == 'true') {
+	            hideAll();
+	            checkUser();
+                currentState = uiState.VIEW_SUBMIT;
                 show('#submitLink');
             }
         },
@@ -141,6 +172,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
                 });
             });
             currentLink = linkId;
+            currentState = uiState.VIEW_COMMENTS;
             show('#comments');
         },  
         commentLink: function (id) {
@@ -193,7 +225,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
                 showSuccess("Link submitted");
             });
         }
-    }
+    };
 
     return ui;
 });

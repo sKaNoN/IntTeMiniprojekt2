@@ -20,8 +20,23 @@ define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], functi
 
     var socket = io.connect('http://localhost:4730');
     socket.on('message', function(message){
-        $.event.trigger({ type: message.action.toLowerCase(), what: message.type, id: message.id });
+        //$.event.trigger({ type: message.action.toLowerCase(), what: message.type, id: message.id });
         console.log("Message recieved: " + message.action.toLowerCase());
+        
+        switch(message.action)
+        {
+        case "AddLink":
+        case "AddComment":
+        case "Rated":
+        	ui.refresh();
+        	break;
+        case "connected":
+        case "disconnect":
+        default:
+        	console.log("no refresh required");
+        }
+        
+        
     });
 
 	//test_ui.test();
