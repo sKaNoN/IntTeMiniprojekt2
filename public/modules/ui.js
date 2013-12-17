@@ -84,6 +84,10 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 				console.log("no view refresh required!!!");
     		}
     	},
+    	
+    	showCurrentLink: function() {
+    		showComments(currentLink);
+    	},
 
         logIn: function () {
             dataservice.users.login($('#loginUser').val(), $('#loginPwd').val());
@@ -135,6 +139,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
         submitLink: function () {
             dataservice.links.add($('#linkTitle').val(), $('#linkURL').val());
+            this.showLinks();
         },
 
         linkVoteUp: function (id) {
@@ -164,7 +169,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
             	$("#comments").empty();
             	$("#comments").append(templates.link(link));
                 if (dataservice.users.loggedIn()) {
-                 $("#comments").append(templates.commentEditor(link));
+                	$("#comments").append(templates.commentEditor(link));
                 }
             
                 $.each(link.comments.sort(sortByRating), function (index, comment) {
@@ -176,6 +181,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
             show('#comments');
         },  
         commentLink: function (id) {
+        	console.log("UI: comment Link");
             dataservice.comments.addToLink(id, $('#submitComment').val());
             this.showComments(currentLink);
         },

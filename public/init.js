@@ -38,7 +38,7 @@ define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], functi
         
         
     });
-
+    
 	//test_ui.test();
 
     var app = sammy("body", function(){
@@ -52,7 +52,10 @@ define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], functi
         this.get("#/link/:id", function(context) {ui.showComments(this.params.id);});
         this.get("#/link/:id/voteUp", function(context) {ui.linkVoteUp(this.params.id);});
         this.get("#/link/:id/voteDown", function(context) {ui.linkVoteDown(this.params.id);});
-        this.get("#/link/:id/comment", function(context) {ui.commentLink(this.params.id);});
+        this.get("#/link/:id/comment", function(context) {
+        	ui.commentLink(this.params.id);
+        	this.redirect("#/link/" + this.params.id);
+        });
         this.get("#/comment/:id/voteUp", function(context) {ui.commentVoteUp(this.params.id);});
         this.get("#/comment/:id/voteDown", function(context) {ui.commentVoteDown(this.params.id);});
         //this.get("#/comment/:id/comment", function(context) {ui.commentComment(this.params.id);});
