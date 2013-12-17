@@ -50,14 +50,12 @@ small {
     font-size: 14px;
 }
 
+#main {
+    margin-top: 50px;
+}
+
 #alert p {
     font-size: 14px;
-}
-@media screen and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2){
-
-    #main {
-        margin-top: 210px;
-    }
 }
 @media screen and (min-device-width: 481px) {
 
@@ -69,9 +67,7 @@ small {
         padding: 3px;
     }
 
-    #main {
-        margin-top: 50px;
-    }
+
 
     .link {
         height: 100px;
