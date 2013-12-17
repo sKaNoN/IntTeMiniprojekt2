@@ -93,7 +93,6 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     			return "#/";
     			break;
     		case uiState.VIEW_COMMENTS:
-    			console.log("get Url view comments")
     			return "#/link/" + currentLink;
     			break;
     		case uiState.VIEW_REGISTER:
@@ -142,7 +141,6 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
                     $("#links").append(templates.link(link));
                 });
             });
-            console.log("show LINKS !!!!!!!!!!!!!!!!!!!!!!!!!!!")
             currentState = uiState.VIEW_LINKS;
             show('#links');
         },
