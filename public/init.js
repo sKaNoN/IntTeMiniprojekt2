@@ -16,9 +16,11 @@
 
 define(['jquery', 'modules/ui', 'modules/test_ui', 'sammy', 'socket.io'], function($, ui, test_ui, sammy, io) {
 
+	console.log("before ui init");
+	
     ui.init();
 
-    var socket = io.connect('http://192.168.0.102:4730');
+    var socket = io.connect('http://152.96.236.26:4730');
     socket.on('message', function(message){
         //$.event.trigger({ type: message.action.toLowerCase(), what: message.type, id: message.id });
         console.log("Message recieved: " + message.action.toLowerCase());

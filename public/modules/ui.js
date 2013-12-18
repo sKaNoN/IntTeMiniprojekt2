@@ -35,7 +35,9 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
     }
 
     function checkUser() {
-        if (dataservice.users.loggedIn() == 'true') {
+    	console.log("before check User" + dataservice.users.isLoggedIn());
+        if (dataservice.users.isLoggedIn()) {
+        	console.log("in check User" + dataservice.users.isLoggedIn());
             console.log("checked: User logged in: " + dataservice.users.getCurrentUser());
             $("#user_name").text(dataservice.users.getCurrentUser());
             show('#logout');
@@ -115,9 +117,9 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         },
 
         showRegister: function () {
-            if (dataservice.users.loggedIn() == 'false') {
+            if (!dataservice.users.isLoggedIn()) {
+            	checkUser();
                 hideAll();
-                checkUser();
                 currentState = uiState.VIEW_REGISTER;
                 show('#register');
             }
@@ -146,7 +148,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         },
 
         showLinkSubmit: function () {
-        	if (dataservice.users.loggedIn() == 'true') {
+        	if (dataservice.users.isLoggedIn()) {
 	            hideAll();
 	            checkUser();
                 currentState = uiState.VIEW_SUBMIT;
@@ -182,7 +184,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
 
             	$("#comments").empty();
             	$("#comments").append(templates.link(link));
-                if (dataservice.users.loggedIn()) {
+                if (dataservice.users.isLoggedIn()) {
                 	$("#comments").append(templates.commentEditor(link));
                 }
             
@@ -212,6 +214,7 @@ define('modules/ui', ['jquery', 'doT', 'sammy', 'modules/dataService', 'modules/
         },
 
         init : function() {
+        	
             $(document).on("login-success", function() {
                 sammy("body").trigger("login-success");
                 showSuccess("Login successful");

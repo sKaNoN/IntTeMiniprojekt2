@@ -44,6 +44,7 @@ entries[1].comments.push(comment);
 
 //default user
 users.push(new User(users.length, "a", "a") );
+users.push(new User(users.length, "b", "b") );
   
 function findUser(name)
 {

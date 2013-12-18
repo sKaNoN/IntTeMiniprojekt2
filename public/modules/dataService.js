@@ -1,16 +1,11 @@
 ﻿define('modules/dataService', ['jquery', 'modules/core'], function ($) {
 
-    function setUser(user, status) {
-    	sessionStorage.currentUser = user;
-        sessionStorage.userStatus = status;
+    function setUser(user) {
+    	localStorage.currentUser = user;
     };
     function getUser() {
-    	return sessionStorage.currentUser;
+    	return localStorage.currentUser;
     };
-
-    function getLoginStatus() {
-        return sessionStorage.userStatus;
-    }
     
     var dataservice = {
         links: {
@@ -72,11 +67,11 @@
                 console.log("Try login: " + username + " pw: " + password);
                 $.post("login", { name: username, password: password }, function(success){
                     if (success === true) {
-                    	setUser(username, true);
+                    	setUser(username);
                         $.event.trigger({ type: "login-success"});
                         console.log("Login success");
                     } else {
-                        setUser(undefined, false);
+                        setUser("");
                         $.event.trigger({ type: "login-failed" });
                         console.log("Login failed");
                     }
@@ -85,7 +80,7 @@
             logout: function() {
             	$.post("logout", {}, function(success){
                     if (success === true) {
-                        setUser(undefined, false);
+                        setUser("");
                         $.event.trigger({ type: "logout"});
                         console.log("Log Out success");
                     } else {
@@ -116,9 +111,11 @@
             getCurrentUser : function() {
             	return getUser();
             },
-            loggedIn : function() {
-                return getLoginStatus();
-            }
+            isLoggedIn : function() {
+            	console.log("Username: " + getUser())
+            	
+            	return getUser() != "";
+            },
         }
 
     };
